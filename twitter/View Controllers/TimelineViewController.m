@@ -10,8 +10,13 @@
 #import "APIManager.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "Tweet.h"
+#import "TweetCell.h"
 
-@interface TimelineViewController ()
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) NSMutableArray<Tweet *> *arrayOfTweets;
+@property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
 
 @end
 
@@ -20,14 +25,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.homeTweetTableView.dataSource = self;
+    self.homeTweetTableView.delegate = self;
+    self.homeTweetTableView.rowHeight = 200;
     // Get timeline
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (NSDictionary *dictionary in tweets) {
-                NSString *text = dictionary[@"text"];
+            for (Tweet *tweet in tweets) {
+                NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
+            [self.arrayOfTweets addObjectsFromArray:tweets];
+            [self.homeTweetTableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -59,5 +69,24 @@
 }
 */
 
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell" forIndexPath:indexPath];
+    Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    
+    NSString *URLString = tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    
+    cell.profilePicture.image = [UIImage imageWithData:urlData];
+    cell.userDisplayName.text = tweet.user.screenName;
+    cell.userAccountName.text = tweet.user.name;
+    cell.tweetText.text = tweet.text;
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.arrayOfTweets.count;
+}
 
 @end
