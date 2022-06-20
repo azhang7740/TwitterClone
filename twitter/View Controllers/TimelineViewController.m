@@ -36,7 +36,8 @@
                 NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
-            [self.arrayOfTweets addObjectsFromArray:tweets];
+            self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
+            NSLog(@"%@", self.arrayOfTweets);
             [self.homeTweetTableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
