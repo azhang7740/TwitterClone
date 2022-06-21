@@ -116,6 +116,10 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="retweet-icon"/>
+                                                    <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="GSi-uN-Gxp" eventType="touchUpInside" id="WHy-nU-H6n"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhs-3e-uxQ">
                                                     <rect key="frame" x="166" y="83" width="29" height="29"/>
@@ -235,7 +239,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Logout"/>
                                 <connections>
-                                    <action selector="didTapLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="Xbr-cz-epf"/>
+                                    <action selector="onTapLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="Xbr-cz-epf"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -246,7 +250,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="edit-icon"/>
                                 <connections>
-                                    <segue destination="VWK-40-Vzh" kind="presentation" id="9dm-gn-R3X"/>
+                                    <segue destination="VWK-40-Vzh" kind="presentation" id="QSd-xi-crH"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -372,6 +376,7 @@
         <image name="favor-icon-red" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <image name="retweet-icon-green" width="30" height="30"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
