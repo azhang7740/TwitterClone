@@ -29,18 +29,18 @@
     self.homeTweetTableView.delegate = self;
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(beginRefresh:)
+             forControlEvents:UIControlEventValueChanged];
     [self.homeTweetTableView insertSubview:refreshControl atIndex:0];
     
     [self fetchTweets];
 }
 
 - (void)fetchTweets {
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray<Tweet *> *tweets, NSError *error) {
+    [[APIManager shared] getHomeTimelineWithCompletion:^
+     (NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"Successfully loaded home timeline");
             self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
-            NSLog(@"%@", self.arrayOfTweets);
             [self.homeTweetTableView reloadData];
         } else {
             NSLog(@"Error getting home timeline: %@", error.localizedDescription);
@@ -57,7 +57,8 @@
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    LoginViewController *loginViewController = [storyboard
+                                                instantiateViewControllerWithIdentifier:@"LoginViewController"];
     appDelegate.window.rootViewController = loginViewController;
     
     [[APIManager shared] logout];
@@ -75,7 +76,8 @@
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell" forIndexPath:indexPath];
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
+                                                      forIndexPath:indexPath];
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     [cell refreshData:tweet];
     

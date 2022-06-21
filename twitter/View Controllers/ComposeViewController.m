@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
 
-@property (nonatomic, strong) User *currUser;
+@property (nonatomic, strong) User *currentUser;
 
 @end
 
@@ -34,9 +34,10 @@
     [[APIManager shared] getCurrentUserInfo:^(User *user, NSError *error) {
         if (user) {
             NSLog(@"Successfully loaded user profile");
-            self.currUser = user;
+            self.currentUser = user;
         } else {
-            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
+            NSLog(@"Error getting home timeline: %@",
+                  error.localizedDescription);
         }
         [self setUserProfilePicture];
     }];
@@ -44,8 +45,8 @@
 
 - (void)setUserProfilePicture {
     NSString *URLString;
-    if (self.currUser) {
-        URLString = self.currUser.profilePicture;
+    if (self.currentUser) {
+        URLString = self.currentUser.profilePicture;
     } else {
         URLString = @"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png";
     }
@@ -64,12 +65,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 - (IBAction)onTapClose:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onTapTweet:(id)sender {
-    [[APIManager shared] postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+    [[APIManager shared] postStatusWithText:self.tweetTextField.text
+                                 completion:^(Tweet *tweet, NSError *error) {
         if (tweet) {
             NSLog(@"Successfully posted tweet");
         } else {
