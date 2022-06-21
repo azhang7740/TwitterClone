@@ -125,6 +125,10 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="favor-icon"/>
+                                                    <state key="selected" image="favor-icon-red"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="GSi-uN-Gxp" eventType="touchUpInside" id="9rv-nu-SLX"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jF4-WQ-741">
                                                     <rect key="frame" x="252" y="83" width="29" height="29"/>
@@ -199,7 +203,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="displayDate" destination="dVU-tW-ysx" id="F82-b9-SKp"/>
-                                            <outlet property="likeButton" destination="Hhs-3e-uxQ" id="ptm-6W-Gyt"/>
+                                            <outlet property="favoriteButton" destination="Hhs-3e-uxQ" id="ptm-6W-Gyt"/>
                                             <outlet property="likeCountLabel" destination="2yv-cR-UIs" id="jBg-fW-IHI"/>
                                             <outlet property="profilePicture" destination="quK-mT-goP" id="beM-lg-KV3"/>
                                             <outlet property="replyButton" destination="jF4-WQ-741" id="7T6-Bc-kPU"/>
@@ -365,6 +369,7 @@
         <image name="TwitterLogoBlue" width="200" height="200"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
+        <image name="favor-icon-red" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
         <systemColor name="labelColor">
