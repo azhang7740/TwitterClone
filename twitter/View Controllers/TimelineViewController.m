@@ -84,6 +84,9 @@
     cell.userAccountName.text = tweet.user.name;
     cell.tweetText.text = tweet.text;
     cell.displayDate.text = tweet.createdAtString;
+    
+    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     return cell;
 }
 
