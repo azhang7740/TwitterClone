@@ -224,14 +224,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="7kG-MU-XnD">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="fJx-ye-9dR">
-                                <rect key="frame" x="276" y="11" width="83" height="34.5"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="qpe-cF-LCf">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6xa-pC-Wml">
+                                <rect key="frame" x="16" y="12.5" width="83" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Logout"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Logout"/>
                                 <connections>
-                                    <action selector="didTapLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="BXy-b3-ZG9"/>
+                                    <action selector="didTapLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="Xbr-cz-epf"/>
                                 </connections>
                             </button>
                         </barButtonItem>
