@@ -264,21 +264,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tfu-rR-m9n">
-                                <rect key="frame" x="10" y="87" width="355" height="201"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <rect key="frame" x="88" y="87" width="277" height="155"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Tfu-rR-m9n" secondAttribute="height" multiplier="355:201" id="WIy-nF-RA1"/>
+                                    <constraint firstAttribute="width" secondItem="Tfu-rR-m9n" secondAttribute="height" multiplier="355:201" constant="3.2437810945273782" id="WIy-nF-RA1"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-5D-Crg">
+                                <rect key="frame" x="10" y="87" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="cZc-2Q-Jf0"/>
+                                    <constraint firstAttribute="width" constant="60" id="hei-D5-ueN"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mEj-to-Plh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Tfu-rR-m9n" firstAttribute="leading" secondItem="mEj-to-Plh" secondAttribute="leading" constant="10" id="7o3-Dy-IXr"/>
+                            <constraint firstItem="gDn-5D-Crg" firstAttribute="leading" secondItem="mEj-to-Plh" secondAttribute="leading" constant="10" id="5I4-KQ-OyY"/>
+                            <constraint firstItem="Tfu-rR-m9n" firstAttribute="leading" secondItem="mEj-to-Plh" secondAttribute="leading" constant="88" id="7o3-Dy-IXr"/>
                             <constraint firstItem="mEj-to-Plh" firstAttribute="trailing" secondItem="Tfu-rR-m9n" secondAttribute="trailing" constant="10" id="Wva-xC-wsa"/>
+                            <constraint firstItem="Tfu-rR-m9n" firstAttribute="top" secondItem="gDn-5D-Crg" secondAttribute="top" id="e0H-Us-OTx"/>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="top" secondItem="mEj-to-Plh" secondAttribute="top" constant="31" id="lny-M8-4ez"/>
                         </constraints>
                     </view>
@@ -309,6 +317,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetTextField" destination="Tfu-rR-m9n" id="lST-cK-eGB"/>
+                        <outlet property="userProfileImage" destination="gDn-5D-Crg" id="jvu-4D-Qvx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rnq-Zm-Uc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -360,9 +369,6 @@
         <image name="retweet-icon" width="30" height="30"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

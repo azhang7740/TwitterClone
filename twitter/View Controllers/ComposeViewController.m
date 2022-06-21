@@ -12,6 +12,9 @@
 @interface ComposeViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
+
+@property (nonatomic, strong) User *currUser;
 
 @end
 
@@ -19,7 +22,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tweetTextField.layer.cornerRadius = self.tweetTextField.frame.size.width / 20;
+    self.tweetTextField.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.tweetTextField.layer.borderWidth = 2.4;
+    
+    [self fetchUserProfilePicture];
+}
+
+- (void)fetchUserProfilePicture {
+    [[APIManager shared] getCurrentUserInfo:^(User *user, NSError *error) {
+        if (user) {
+            NSLog(@"Successfully loaded user profile");
+            self.currUser = user;
+        } else {
+            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
+        }
+        [self setUserProfilePicture];
+    }];
+}
+
+- (void)setUserProfilePicture {
+    NSString *URLString;
+    if (self.currUser) {
+        URLString = self.currUser.profilePicture;
+    } else {
+        URLString = @"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png";
+    }
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    self.userProfileImage.image = [UIImage imageWithData:urlData];
+    self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.width / 2;
 }
 
 /*

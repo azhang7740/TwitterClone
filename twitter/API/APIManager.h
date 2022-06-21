@@ -18,4 +18,6 @@
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;
 
+- (void)getCurrentUserInfo:(void(^)(User *userInfo, NSError *error))completion;
+
 @end

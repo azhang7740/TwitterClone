@@ -30,8 +30,6 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     
     NSURL *baseURL = [NSURL URLWithString:baseURLString];
     
-    // TODO: fix code below to pull API Keys from your new Keys.plist file
-    
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
 
@@ -51,6 +49,19 @@ static NSString * const baseURLString = @"https://api.twitter.com";
         
     }
     return self;
+}
+
+// 1.1/account/verify_credentials.json
+- (void)getCurrentUserInfo:(void(^)(User *userInfo, NSError *error))completion {
+    [self GET:@"1.1/account/verify_credentials.json"
+       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable userDictionary) {
+           // Success
+           User *user = [[User alloc]initWithDictionary:userDictionary];
+           completion(user, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           // There was a problem
+           completion(nil, error);
+    }];
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
