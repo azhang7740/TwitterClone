@@ -77,20 +77,8 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell" forIndexPath:indexPath];
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    [cell refreshData:tweet];
     
-    NSString *URLString = tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    cell.profilePicture.image = [UIImage imageWithData:urlData];
-    cell.profilePicture.layer.cornerRadius = cell.profilePicture.frame.size.width / 2;
-    
-    cell.userDisplayName.text = tweet.user.screenName;
-    cell.userAccountName.text = tweet.user.name;
-    cell.tweetText.text = tweet.text;
-    cell.displayDate.text = tweet.createdAtString;
-    
-    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     return cell;
 }
 

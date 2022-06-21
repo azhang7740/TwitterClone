@@ -21,4 +21,20 @@
     // Configure the view for the selected state
 }
 
+- (void)refreshData:(Tweet *)tweet {
+    NSString *URLString = tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    self.profilePicture.image = [UIImage imageWithData:urlData];
+    self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+    
+    self.userDisplayName.text = tweet.user.screenName;
+    self.userAccountName.text = tweet.user.name;
+    self.tweetText.text = tweet.text;
+    self.displayDate.text = tweet.createdAtString;
+    
+    self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    self.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+}
+
 @end
