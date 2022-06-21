@@ -27,19 +27,23 @@
     
     self.homeTweetTableView.dataSource = self;
     self.homeTweetTableView.delegate = self;
-    // Get timeline
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.homeTweetTableView insertSubview:refreshControl atIndex:0];
+    
+    [self fetchTweets];
+}
+
+- (void)fetchTweets {
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-                NSString *text = tweet.text;
-                NSLog(@"%@", text);
-            }
+            NSLog(@"Successfully loaded home timeline");
             self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
             NSLog(@"%@", self.arrayOfTweets);
             [self.homeTweetTableView reloadData];
         } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
         }
     }];
 }
@@ -92,6 +96,11 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.arrayOfTweets.count;
+}
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    [self fetchTweets];
+    [refreshControl endRefreshing];
 }
 
 @end
