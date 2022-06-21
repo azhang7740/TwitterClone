@@ -27,7 +27,6 @@
     
     self.homeTweetTableView.dataSource = self;
     self.homeTweetTableView.delegate = self;
-    self.homeTweetTableView.rowHeight = 200;
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
@@ -78,11 +77,13 @@
     NSString *URLString = tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
-    
     cell.profilePicture.image = [UIImage imageWithData:urlData];
+    cell.profilePicture.layer.cornerRadius = cell.profilePicture.frame.size.width / 2;
+    
     cell.userDisplayName.text = tweet.user.screenName;
     cell.userAccountName.text = tweet.user.name;
     cell.tweetText.text = tweet.text;
+    cell.displayDate.text = tweet.createdAtString;
     return cell;
 }
 
