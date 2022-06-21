@@ -7,8 +7,11 @@
 //
 
 #import "ComposeViewController.h"
+#import "APIManager.h"
 
 @interface ComposeViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
 
 @end
 
@@ -29,6 +32,17 @@
 }
 */
 - (IBAction)onTapClose:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onTapTweet:(id)sender {
+    [[APIManager shared] postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+        if (tweet) {
+            NSLog(@"Successfully posted tweet");
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
