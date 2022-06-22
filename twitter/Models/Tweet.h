@@ -13,17 +13,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Tweet : NSObject
 
-@property (nonatomic, strong) NSString *idStr; // For favoriting, retweeting & replying
-@property (nonatomic, strong) NSString *text; // Text content of tweet
-@property (nonatomic) int favoriteCount; // Update favorite count label
-@property (nonatomic) BOOL favorited; // Configure favorite button
-@property (nonatomic) int retweetCount; // Update favorite count label
-@property (nonatomic) BOOL retweeted; // Configure retweet button
-@property (nonatomic, strong) User *user; // Contains Tweet author's name, screenname, etc.
-@property (nonatomic, strong) NSString *createdAtString; // Display date
+/// For favoriting, retweeting & replying
+@property (nonatomic, strong) NSString *idStr;
+/// Text content of tweet
+@property (nonatomic, strong) NSString *text;
+/// Update favorite count label
+@property (nonatomic) int favoriteCount;
+/// Configure favorite button
+@property (nonatomic) BOOL favorited;
+/// Update retweet count label
+@property (nonatomic) int retweetCount;
+/// Configure retweet button
+@property (nonatomic) BOOL retweeted;
+/// Contains Tweet author's name, screenname, etc.
+@property (nonatomic, strong) User *user;
+/// Display date without time
+@property (nonatomic, strong) NSString *createdAtString;
+/// Display NSDate object with time
+@property (nonatomic, strong) NSDate *createdAtDate;
 
-// For Retweets
-@property (nonatomic, strong) User *retweetedByUser;  // If the tweet is a retweet, this will be the user who retweeted
+/// For Retweets: If the tweet is a retweet, this will be the user who retweeted
+@property (nonatomic, strong) User *retweetedByUser;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 + (NSMutableArray *)tweetsWithArray:(NSArray *)dictionaries;
