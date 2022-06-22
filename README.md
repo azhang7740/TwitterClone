@@ -41,8 +41,7 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 - [X] Likes and retweet labels change based on the number of likes/retweets (0, 1, or plural)
-
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Placeholder text on compose tweet text field appears when the text field is empty and disappears when typing
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
