@@ -9,7 +9,7 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
@@ -26,6 +26,9 @@
     self.tweetTextField.layer.cornerRadius = self.tweetTextField.frame.size.width / 20;
     self.tweetTextField.layer.borderColor = [[UIColor grayColor] CGColor];
     self.tweetTextField.layer.borderWidth = 2.4;
+    self.tweetTextField.delegate = self;
+    self.tweetTextField.text = @"Type here...";
+    self.tweetTextField.textColor = [UIColor lightGrayColor];
     
     [self fetchUserProfilePicture];
 }
@@ -82,6 +85,20 @@
     }];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (self.tweetTextField.textColor == [UIColor lightGrayColor]) {
+        self.tweetTextField.text = nil;
+        self.tweetTextField.textColor = [UIColor blackColor];
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.tweetTextField.text length] == 0) {
+        self.tweetTextField.text = @"Type here...";
+        self.tweetTextField.textColor = [UIColor lightGrayColor];
+    }
 }
 
 @end
