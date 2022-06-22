@@ -454,6 +454,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tfu-rR-m9n">
                                 <rect key="frame" x="89" y="87" width="277" height="155"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="10m-rv-cR5"/>
                                     <constraint firstAttribute="height" constant="155" id="uKp-q7-FUm"/>
@@ -465,12 +466,16 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mEj-to-Plh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="leading" secondItem="gDn-5D-Crg" secondAttribute="trailing" constant="18" id="0uc-RP-Zyi"/>
                             <constraint firstItem="gDn-5D-Crg" firstAttribute="top" secondItem="mEj-to-Plh" secondAttribute="top" constant="31" id="7AK-Cz-VVS"/>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="centerX" secondItem="k9k-jS-JZz" secondAttribute="centerX" constant="40" id="JBe-8S-W2G"/>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="top" secondItem="gDn-5D-Crg" secondAttribute="top" id="bVs-Hn-UGd"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="GgY-mC-772" appends="YES" id="ygB-bg-3Jw"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="MCZ-p6-wRp">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="dfo-o5-r24">
@@ -503,6 +508,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rnq-Zm-Uc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GgY-mC-772">
+                    <connections>
+                        <action selector="onTapOutside:" destination="K41-4R-lzg" id="7sA-3c-yQi"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2599.1999999999998" y="747.9760119940031"/>
         </scene>

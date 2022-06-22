@@ -92,6 +92,7 @@
         self.tweetTextField.text = nil;
         self.tweetTextField.textColor = [UIColor blackColor];
     }
+
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -99,6 +100,10 @@
         self.tweetTextField.text = @"Type here...";
         self.tweetTextField.textColor = [UIColor lightGrayColor];
     }
+}
+
+- (IBAction)onTapOutside:(id)sender {
+    [self.tweetTextField endEditing:true];
 }
 
 @end
