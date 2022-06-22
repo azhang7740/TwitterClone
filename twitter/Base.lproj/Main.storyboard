@@ -463,6 +463,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaV-BQ-PY6">
+                                <rect key="frame" x="360" y="252" width="6" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mEj-to-Plh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -471,7 +477,9 @@
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="leading" secondItem="gDn-5D-Crg" secondAttribute="trailing" constant="18" id="0uc-RP-Zyi"/>
                             <constraint firstItem="gDn-5D-Crg" firstAttribute="top" secondItem="mEj-to-Plh" secondAttribute="top" constant="31" id="7AK-Cz-VVS"/>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="centerX" secondItem="k9k-jS-JZz" secondAttribute="centerX" constant="40" id="JBe-8S-W2G"/>
+                            <constraint firstItem="NaV-BQ-PY6" firstAttribute="trailing" secondItem="Tfu-rR-m9n" secondAttribute="trailing" id="ND5-ri-4Un"/>
                             <constraint firstItem="Tfu-rR-m9n" firstAttribute="top" secondItem="gDn-5D-Crg" secondAttribute="top" id="bVs-Hn-UGd"/>
+                            <constraint firstItem="NaV-BQ-PY6" firstAttribute="top" secondItem="Tfu-rR-m9n" secondAttribute="bottom" constant="10" id="hAc-eT-sv9"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="GgY-mC-772" appends="YES" id="ygB-bg-3Jw"/>
@@ -503,6 +511,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="characterCountLabel" destination="NaV-BQ-PY6" id="PnL-Fa-iuI"/>
                         <outlet property="tweetTextField" destination="Tfu-rR-m9n" id="lST-cK-eGB"/>
                         <outlet property="userProfileImage" destination="gDn-5D-Crg" id="jvu-4D-Qvx"/>
                     </connections>

@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
 
 @property (nonatomic, strong) User *currentUser;
 
@@ -99,6 +100,17 @@
     if ([self.tweetTextField.text length] == 0) {
         self.tweetTextField.text = @"Type here...";
         self.tweetTextField.textColor = [UIColor lightGrayColor];
+        self.characterCountLabel.text = @"0";
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    self.characterCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.tweetTextField.text length]];
+    int characterLimit = 140;
+    if ([self.tweetTextField.text length] > characterLimit) {
+        self.characterCountLabel.textColor = [UIColor redColor];
+    } else {
+        self.characterCountLabel.textColor = [UIColor blackColor];
     }
 }
 
