@@ -32,7 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tweetBodyLabel.text = @"Text Text Text Text Text ext Text Text Text Text ext Text Text Text Text ext Text Text Text Text";
 }
 
 /*
