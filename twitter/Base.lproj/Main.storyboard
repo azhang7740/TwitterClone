@@ -90,12 +90,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bv-9p-rGF">
-                                                    <rect key="frame" x="80" y="29.5" width="274" height="43.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6Y-uq-lfx">
                                                     <rect key="frame" x="116" y="10" width="31" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -173,17 +167,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="TextView" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cVH-Za-YHp">
+                                                    <rect key="frame" x="80" y="29.5" width="274" height="43.5"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="cVH-Za-YHp" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="bottom" constant="5" id="262-bo-v8d"/>
+                                                <constraint firstItem="BTl-MS-1ak" firstAttribute="top" secondItem="cVH-Za-YHp" secondAttribute="bottom" constant="10" id="4Rc-Mp-7vP"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="dVU-tW-ysx" secondAttribute="trailing" constant="5" id="4h9-vS-FHB"/>
-                                                <constraint firstItem="Hhs-3e-uxQ" firstAttribute="top" secondItem="0bv-9p-rGF" secondAttribute="bottom" constant="10" id="7iL-lB-Bni"/>
-                                                <constraint firstItem="0bv-9p-rGF" firstAttribute="leading" secondItem="Gi3-Yz-RhZ" secondAttribute="leading" id="7k1-6O-Dfz"/>
                                                 <constraint firstItem="2yv-cR-UIs" firstAttribute="leading" secondItem="Hhs-3e-uxQ" secondAttribute="trailing" constant="2" id="E4e-3s-DKs"/>
                                                 <constraint firstItem="2yv-cR-UIs" firstAttribute="top" secondItem="Hhs-3e-uxQ" secondAttribute="top" id="GLt-k9-3m6"/>
-                                                <constraint firstItem="0bv-9p-rGF" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="bottom" constant="5" id="HaX-f9-G0P"/>
                                                 <constraint firstItem="Gi3-Yz-RhZ" firstAttribute="top" secondItem="quK-mT-goP" secondAttribute="top" constant="5" id="Lom-iA-uDm"/>
                                                 <constraint firstItem="Hhs-3e-uxQ" firstAttribute="leading" secondItem="Uju-ht-pjP" secondAttribute="trailing" constant="5" id="LxH-Af-nmN"/>
-                                                <constraint firstItem="0bv-9p-rGF" firstAttribute="leading" secondItem="BTl-MS-1ak" secondAttribute="leading" id="N4J-Zg-xYb"/>
                                                 <constraint firstItem="dVU-tW-ysx" firstAttribute="bottom" secondItem="w6Y-uq-lfx" secondAttribute="bottom" id="PdO-Gn-5Ww"/>
                                                 <constraint firstItem="Gi3-Yz-RhZ" firstAttribute="leading" secondItem="quK-mT-goP" secondAttribute="trailing" constant="15" id="QFE-2W-lR9"/>
                                                 <constraint firstItem="dVU-tW-ysx" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="top" id="R4I-fT-eQW"/>
@@ -197,12 +197,15 @@
                                                 <constraint firstItem="Uju-ht-pjP" firstAttribute="leading" secondItem="BTl-MS-1ak" secondAttribute="trailing" constant="2" id="aRx-yh-jTi"/>
                                                 <constraint firstItem="w6Y-uq-lfx" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="top" id="cJh-C6-8Kk"/>
                                                 <constraint firstAttribute="bottom" secondItem="BTl-MS-1ak" secondAttribute="bottom" constant="10" id="f0n-LY-Uu2"/>
+                                                <constraint firstItem="cVH-Za-YHp" firstAttribute="leading" secondItem="Gi3-Yz-RhZ" secondAttribute="leading" id="hFs-eT-KXZ"/>
                                                 <constraint firstItem="quK-mT-goP" firstAttribute="top" secondItem="l58-bv-o6o" secondAttribute="top" constant="5" id="hhJ-M3-f2F"/>
                                                 <constraint firstItem="w6Y-uq-lfx" firstAttribute="bottom" secondItem="Gi3-Yz-RhZ" secondAttribute="bottom" id="ht4-7q-zxV"/>
                                                 <constraint firstItem="w6Y-uq-lfx" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="top" id="iUx-x8-LTl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cVH-Za-YHp" secondAttribute="trailing" constant="5" id="k1e-Mk-n0o"/>
+                                                <constraint firstItem="cVH-Za-YHp" firstAttribute="leading" secondItem="quK-mT-goP" secondAttribute="trailing" constant="15" id="oSM-QI-GE1"/>
                                                 <constraint firstItem="quK-mT-goP" firstAttribute="leading" secondItem="l58-bv-o6o" secondAttribute="leading" constant="5" id="ofo-bP-gYl"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="0bv-9p-rGF" secondAttribute="trailing" constant="5" id="rq4-r6-uHx"/>
                                                 <constraint firstItem="Uju-ht-pjP" firstAttribute="top" secondItem="BTl-MS-1ak" secondAttribute="top" id="tBm-3J-rFc"/>
+                                                <constraint firstItem="BTl-MS-1ak" firstAttribute="leading" secondItem="cVH-Za-YHp" secondAttribute="leading" id="tdu-PU-jlU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -214,7 +217,7 @@
                                             <outlet property="replyCountLabel" destination="fqg-NZ-Wf8" id="gbP-kf-sLL"/>
                                             <outlet property="retweetButton" destination="BTl-MS-1ak" id="QcG-Ic-F1j"/>
                                             <outlet property="retweetCountLabel" destination="Uju-ht-pjP" id="Syv-Mp-kog"/>
-                                            <outlet property="tweetText" destination="0bv-9p-rGF" id="XTv-or-ZVD"/>
+                                            <outlet property="tweetText" destination="cVH-Za-YHp" id="dfh-Fi-Ddu"/>
                                             <outlet property="userAccountName" destination="w6Y-uq-lfx" id="hFW-FW-0gi"/>
                                             <outlet property="userDisplayName" destination="Gi3-Yz-RhZ" id="kWx-54-N4m"/>
                                         </connections>

@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userDisplayName;
 @property (weak, nonatomic) IBOutlet UILabel *userAccountName;
 @property (weak, nonatomic) IBOutlet UILabel *displayDate;
-@property (weak, nonatomic) IBOutlet UILabel *tweetText;
+@property (weak, nonatomic) IBOutlet UITextView *tweetText;
 
 
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
@@ -52,7 +52,11 @@
     
     self.userDisplayName.text = self.cellTweet.user.screenName;
     self.userAccountName.text = self.cellTweet.user.name;
+    
     self.tweetText.text = self.cellTweet.text;
+    self.tweetText.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor systemBlueColor]};
+    self.tweetText.dataDetectorTypes = UIDataDetectorTypeLink;
+    
     self.displayDate.text = [self.cellTweet.createdAtDate shortTimeAgoSinceNow];
     
     self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.cellTweet.retweetCount];
