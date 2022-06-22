@@ -75,17 +75,26 @@
 }
 
 - (IBAction)onTapTweet:(id)sender {
-    [[APIManager shared]postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error composing Tweet: %@", error.localizedDescription);
-        }
-        else{
-            [self.delegate didTweet:tweet];
-            NSLog(@"Compose Tweet Success!");
-        }
-    }];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.characterCountLabel.textColor == [UIColor redColor]) {
+        [self displayErrorAlert:@"Your tweet is too long."];
+    } else {
+        [[APIManager shared]postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                [self displayErrorAlert:@"Your tweet didn't post successfully."];
+            } else {
+                [self.delegate didTweet:tweet];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
+}
+
+- (void)displayErrorAlert:(NSString *)error {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Oops!" message:error preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alertController animated: YES completion: nil];
+    UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+    [alertController addAction:closeAction];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
