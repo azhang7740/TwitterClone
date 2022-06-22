@@ -53,11 +53,7 @@
     self.userDisplayName.text = self.cellTweet.user.screenName;
     self.userAccountName.text = self.cellTweet.user.name;
     self.tweetText.text = self.cellTweet.text;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"M/d/yy";
-    NSDate *date = [dateFormatter dateFromString:self.cellTweet.createdAtString];
-    self.displayDate.text = [date shortTimeAgoSinceNow];
+    self.displayDate.text = [self.cellTweet.createdAtDate shortTimeAgoSinceNow];
     
     self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.cellTweet.retweetCount];
     self.likeCountLabel.text = [NSString stringWithFormat:@"%d", self.cellTweet.favoriteCount];

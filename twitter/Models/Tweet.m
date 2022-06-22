@@ -50,6 +50,7 @@
         formatter.timeStyle = NSDateFormatterNoStyle;
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
+        self.createdAtDate = date;
     }
     return self;
 }
