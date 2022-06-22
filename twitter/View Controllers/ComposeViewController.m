@@ -9,10 +9,11 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
 
 @property (nonatomic, strong) User *currentUser;
 
@@ -26,6 +27,9 @@
     self.tweetTextField.layer.cornerRadius = self.tweetTextField.frame.size.width / 20;
     self.tweetTextField.layer.borderColor = [[UIColor grayColor] CGColor];
     self.tweetTextField.layer.borderWidth = 2.4;
+    self.tweetTextField.delegate = self;
+    self.tweetTextField.text = @"Type here...";
+    self.tweetTextField.textColor = [UIColor lightGrayColor];
     
     [self fetchUserProfilePicture];
 }
@@ -71,17 +75,56 @@
 }
 
 - (IBAction)onTapTweet:(id)sender {
-    [[APIManager shared]postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error composing Tweet: %@", error.localizedDescription);
-        }
-        else{
-            [self.delegate didTweet:tweet];
-            NSLog(@"Compose Tweet Success!");
-        }
-    }];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.characterCountLabel.textColor == [UIColor redColor]) {
+        [self displayErrorAlert:@"Your tweet is too long."];
+    } else {
+        [[APIManager shared]postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                [self displayErrorAlert:@"Your tweet didn't post successfully."];
+            } else {
+                [self.delegate didTweet:tweet];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
+}
+
+- (void)displayErrorAlert:(NSString *)error {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Oops!" message:error preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alertController animated: YES completion: nil];
+    UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+    [alertController addAction:closeAction];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (self.tweetTextField.textColor == [UIColor lightGrayColor]) {
+        self.tweetTextField.text = nil;
+        self.tweetTextField.textColor = [UIColor blackColor];
+    }
+
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.tweetTextField.text length] == 0) {
+        self.tweetTextField.text = @"Type here...";
+        self.tweetTextField.textColor = [UIColor lightGrayColor];
+        self.characterCountLabel.text = @"0";
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    self.characterCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.tweetTextField.text length]];
+    int characterLimit = 140;
+    if ([self.tweetTextField.text length] > characterLimit) {
+        self.characterCountLabel.textColor = [UIColor redColor];
+    } else {
+        self.characterCountLabel.textColor = [UIColor blackColor];
+    }
+}
+
+- (IBAction)onTapOutside:(id)sender {
+    [self.tweetTextField endEditing:true];
 }
 
 @end
