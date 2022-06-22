@@ -33,7 +33,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tweetBodyLabel.text = @"Text Text Text Text Text ext Text Text Text Text ext Text Text Text Text ext Text Text Text Text";
+    [self setProfilePicture];
+    [self setUserTweetText];
+    [self setPostDateTime];
+}
+
+- (void)setProfilePicture {
+    NSString *URLString = self.tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    self.profilePictureImage.image = [UIImage imageWithData:urlData];
+    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
+}
+
+- (void)setUserTweetText {
+    self.nameLabel.text = self.tweet.user.name;
+    self.screenNameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
+    self.tweetBodyLabel.text = self.tweet.text;
+}
+
+- (void)setPostDateTime {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocalizedDateFormatFromTemplate:@"h:mm"];
+    self.postTimeLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
+    [dateFormatter setLocalizedDateFormatFromTemplate:@"MMM d, yyyy"];
+    self.postDateLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
 }
 
 /*
