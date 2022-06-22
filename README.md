@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 **A user could**
 
 - [X] Be able to **unlike** or **un-retweet** by tapping a liked or retweeted Tweet button, respectively. (Doing so will decrement the count for each)
-- [ ] Click on links that appear in Tweets
+- [X] Click on links that appear in Tweets
 - [ ] See embedded media in Tweets that contain images or videos
 - [ ] Reply to any Tweet (**2 points**)
   - Replies should be prefixed with the username
@@ -40,6 +40,7 @@ The following **stretch** features are implemented:
 - [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
 
 The following **additional** features are implemented:
+- [X] Likes and retweet labels change based on the number of likes/retweets (0, 1, or plural)
 
 - [ ] List anything else that you can get done to improve the app functionality!
 
