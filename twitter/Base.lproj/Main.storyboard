@@ -266,7 +266,7 @@
         <!--Tweet Details View Controller-->
         <scene sceneID="nxJ-Mp-vb4">
             <objects>
-                <viewController id="XhM-or-gm8" customClass="TweetDetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TweetDetailsViewController" id="XhM-or-gm8" customClass="TweetDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loh-Pg-Djz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
