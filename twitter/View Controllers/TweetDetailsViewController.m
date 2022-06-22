@@ -36,6 +36,7 @@
     [self setProfilePicture];
     [self setUserTweetText];
     [self setPostDateTime];
+    [self setFavoritesAndRetweets];
 }
 
 - (void)setProfilePicture {
@@ -58,6 +59,26 @@
     self.postTimeLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
     [dateFormatter setLocalizedDateFormatFromTemplate:@"MMM d, yyyy"];
     self.postDateLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
+}
+
+- (void)setFavoritesAndRetweets {
+    if (self.tweet.retweetCount == 1) {
+        self.retweetsLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.retweetCount] stringByAppendingString:@" retweet"];
+    } else if (self.tweet.retweetCount > 0) {
+        self.retweetsLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.retweetCount] stringByAppendingString:@" retweets"];
+    } else {
+        self.retweetsLabel.text = @"";
+    }
+    self.retweetButton.selected = self.tweet.retweeted;
+    
+    if (self.tweet.favoriteCount == 1) {
+        self.favoriteLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] stringByAppendingString:@" like"];
+    } else if (self.tweet.favoriteCount > 0) {
+        self.favoriteLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] stringByAppendingString:@" likes"];
+    } else {
+        self.favoriteLabel.text = @"";
+    }
+    self.favoriteButton.selected = self.tweet.favorited;
 }
 
 /*
