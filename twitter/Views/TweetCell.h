@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)refreshData:(Tweet *)tweet;
 
+- (void)refreshCurrentCell;
+
 @end
 
 NS_ASSUME_NONNULL_END

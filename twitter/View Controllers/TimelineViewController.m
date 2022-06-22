@@ -34,7 +34,9 @@
     [refreshControl addTarget:self action:@selector(beginRefresh:)
              forControlEvents:UIControlEventValueChanged];
     [self.homeTweetTableView insertSubview:refreshControl atIndex:0];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self fetchTweets];
 }
 
