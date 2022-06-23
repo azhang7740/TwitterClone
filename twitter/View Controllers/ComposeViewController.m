@@ -37,11 +37,7 @@
 - (void)fetchUserProfilePicture {
     [[APIManager shared] getCurrentUserInfo:^(User *user, NSError *error) {
         if (user) {
-            NSLog(@"Successfully loaded user profile");
             self.currentUser = user;
-        } else {
-            NSLog(@"Error getting home timeline: %@",
-                  error.localizedDescription);
         }
         [self setUserProfilePicture];
     }];
@@ -59,16 +55,6 @@
     self.userProfileImage.image = [UIImage imageWithData:urlData];
     self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.width / 2;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)onTapClose:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

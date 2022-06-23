@@ -46,8 +46,6 @@
         if (tweets) {
             self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
             [self.homeTweetTableView reloadData];
-        } else {
-            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
         }
     }];
 }

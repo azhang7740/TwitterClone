@@ -83,24 +83,12 @@
     self.cellTweet.favorited = !self.cellTweet.favorited;
     if (self.cellTweet.favorited) {
         self.cellTweet.favoriteCount += 1;
-        [[APIManager shared] favorite:self.cellTweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-             }
-         }];
+        [[APIManager shared] favorite:self.cellTweet completion:^(Tweet *tweet,
+                                                                  NSError *error) {}];
     } else {
         self.cellTweet.favoriteCount -= 1;
-        [[APIManager shared] unfavorite:self.cellTweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-             }
-         }];
+        [[APIManager shared] unfavorite:self.cellTweet completion:^(Tweet *tweet,
+                                                                    NSError *error) {}];
     }
     
     [self refreshCurrentCell];
@@ -110,24 +98,12 @@
     self.cellTweet.retweeted = !self.cellTweet.retweeted;
     if (self.cellTweet.retweeted) {
         self.cellTweet.retweetCount += 1;
-        [[APIManager shared] retweet:self.cellTweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error Retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-             }
-         }];
+        [[APIManager shared] retweet:self.cellTweet completion:^(Tweet *tweet,
+                                                                 NSError *error) {}];
     } else {
         self.cellTweet.retweetCount -= 1;
-        [[APIManager shared] unretweet:self.cellTweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
-         }];
+        [[APIManager shared] unretweet:self.cellTweet completion:^(Tweet *tweet,
+                                                                   NSError *error) {}];
     }
     
     [self refreshCurrentCell];
