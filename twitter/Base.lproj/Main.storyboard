@@ -441,7 +441,7 @@
         <scene sceneID="QHf-Wt-yR2">
             <objects>
                 <viewController id="K41-4R-lzg" customClass="ComposeViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="k9k-jS-JZz">
+                    <view key="view" contentMode="scaleToFill" id="k9k-jS-JZz" customClass="ComposeView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -482,6 +482,9 @@
                             <constraint firstItem="NaV-BQ-PY6" firstAttribute="top" secondItem="Tfu-rR-m9n" secondAttribute="bottom" constant="10" id="hAc-eT-sv9"/>
                         </constraints>
                         <connections>
+                            <outlet property="characterCountLabel" destination="NaV-BQ-PY6" id="R6r-xq-1x9"/>
+                            <outlet property="tweetTextField" destination="Tfu-rR-m9n" id="hhu-P3-udh"/>
+                            <outlet property="userProfileImage" destination="gDn-5D-Crg" id="1L4-7v-sC7"/>
                             <outletCollection property="gestureRecognizers" destination="GgY-mC-772" appends="YES" id="ygB-bg-3Jw"/>
                         </connections>
                     </view>
@@ -511,9 +514,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="characterCountLabel" destination="NaV-BQ-PY6" id="PnL-Fa-iuI"/>
-                        <outlet property="tweetTextField" destination="Tfu-rR-m9n" id="lST-cK-eGB"/>
-                        <outlet property="userProfileImage" destination="gDn-5D-Crg" id="jvu-4D-Qvx"/>
+                        <outlet property="composeView" destination="k9k-jS-JZz" id="utp-Ub-1kt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rnq-Zm-Uc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

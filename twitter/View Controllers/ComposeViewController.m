@@ -7,13 +7,12 @@
 //
 
 #import "ComposeViewController.h"
+#import "ComposeView.h"
 #import "APIManager.h"
 
 @interface ComposeViewController () <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
-@property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
-@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
+@property (strong, nonatomic) IBOutlet ComposeView *composeView;
 
 @property (nonatomic, strong) User *currentUser;
 
@@ -24,12 +23,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tweetTextField.layer.cornerRadius = self.tweetTextField.frame.size.width / 20;
-    self.tweetTextField.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.tweetTextField.layer.borderWidth = 2.4;
-    self.tweetTextField.delegate = self;
-    self.tweetTextField.text = @"Type here...";
-    self.tweetTextField.textColor = [UIColor lightGrayColor];
+    [self configureComposeView];
+}
+
+- (void)configureComposeView {
+    self.composeView.tweetTextField.layer.cornerRadius = self.composeView.tweetTextField.frame.size.width / 20;
+    self.composeView.tweetTextField.layer.borderColor = [UIColor.grayColor CGColor];
+    self.composeView.tweetTextField.layer.borderWidth = 2.4;
+    self.composeView.tweetTextField.delegate = self;
+    self.composeView.tweetTextField.text = @"Type here...";
+    self.composeView.tweetTextField.textColor = UIColor.lightGrayColor;
     
     [self fetchUserProfilePicture];
 }
@@ -52,8 +55,8 @@
     }
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
-    self.userProfileImage.image = [UIImage imageWithData:urlData];
-    self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.width / 2;
+    self.composeView.userProfileImage.image = [UIImage imageWithData:urlData];
+    self.composeView.userProfileImage.layer.cornerRadius = self.composeView.userProfileImage.frame.size.width / 2;
 }
 
 - (IBAction)onTapClose:(id)sender {
@@ -61,10 +64,10 @@
 }
 
 - (IBAction)onTapTweet:(id)sender {
-    if (self.characterCountLabel.textColor == [UIColor redColor]) {
+    if (self.composeView.characterCountLabel.textColor == [UIColor redColor]) {
         [self displayErrorAlert:@"Your tweet is too long."];
     } else {
-        [[APIManager shared]postStatusWithText:self.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+        [[APIManager shared]postStatusWithText:self.composeView.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
             if(error){
                 [self displayErrorAlert:@"Your tweet didn't post successfully."];
             } else {
@@ -84,33 +87,33 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if (self.tweetTextField.textColor == [UIColor lightGrayColor]) {
-        self.tweetTextField.text = nil;
-        self.tweetTextField.textColor = [UIColor blackColor];
+    if (self.composeView.tweetTextField.textColor == UIColor.lightGrayColor) {
+        self.composeView.tweetTextField.text = nil;
+        self.composeView.tweetTextField.textColor = UIColor.blackColor;
     }
 
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if ([self.tweetTextField.text length] == 0) {
-        self.tweetTextField.text = @"Type here...";
-        self.tweetTextField.textColor = [UIColor lightGrayColor];
-        self.characterCountLabel.text = @"0";
+    if ([self.composeView.tweetTextField.text length] == 0) {
+        self.composeView.tweetTextField.text = @"Type here...";
+        self.composeView.tweetTextField.textColor = UIColor.lightGrayColor;
+        self.composeView.characterCountLabel.text = @"0";
     }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    self.characterCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.tweetTextField.text length]];
+    self.composeView.characterCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.composeView.tweetTextField.text length]];
     int characterLimit = 140;
-    if ([self.tweetTextField.text length] > characterLimit) {
-        self.characterCountLabel.textColor = [UIColor redColor];
+    if ([self.composeView.tweetTextField.text length] > characterLimit) {
+        self.composeView.characterCountLabel.textColor = UIColor.redColor;
     } else {
-        self.characterCountLabel.textColor = [UIColor blackColor];
+        self.composeView.characterCountLabel.textColor = UIColor.blackColor;
     }
 }
 
 - (IBAction)onTapOutside:(id)sender {
-    [self.tweetTextField endEditing:true];
+    [self.composeView.tweetTextField endEditing:true];
 }
 
 @end

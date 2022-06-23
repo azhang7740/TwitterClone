@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ComposeView : UIView
 
+@property (weak, nonatomic) IBOutlet UITextView *tweetTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END
