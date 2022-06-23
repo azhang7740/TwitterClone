@@ -14,10 +14,12 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "TweetDetailsViewController.h"
+#import "TweetCellModel.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray<Tweet *> *arrayOfTweets;
+@property (nonatomic, strong) NSMutableArray<Tweet *> *tweets;
+@property (nonatomic, strong) NSMutableArray<TweetCellModel *> *tweetModels;
 @property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
 
 @end
@@ -44,7 +46,7 @@
     [[APIManager shared] getHomeTimelineWithCompletion:^
      (NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
-            self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
+            self.tweets = (NSMutableArray<Tweet *> *)tweets;
             [self.homeTweetTableView reloadData];
         }
     }];
@@ -55,7 +57,7 @@
 }
 
 - (void)didTweet:(Tweet *)tweet {
-    [self.arrayOfTweets insertObject:tweet atIndex:0];
+    [self.tweets insertObject:tweet atIndex:0];
     [self.homeTweetTableView reloadData];
 }
 
@@ -82,21 +84,21 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
                                                       forIndexPath:indexPath];
-    Tweet *tweet = self.arrayOfTweets[indexPath.row];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell refreshData:tweet];
+    Tweet *tweet = self.tweets[indexPath.row];
+    TweetCellModel *cellModel = [[TweetCellModel alloc] init:cell cellTweet:tweet];;
+    [self.tweetModels addObject:cellModel];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arrayOfTweets.count;
+    return self.tweets.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UINavigationController *navigationController = self.navigationController;
     TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
-    viewController.tweet = self.arrayOfTweets[indexPath.row];
+    viewController.tweet = self.tweets[indexPath.row];
     [navigationController pushViewController: viewController animated:YES];
 }
 
