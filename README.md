@@ -60,7 +60,7 @@ Here's a walkthrough of implemented user stories:
 
 <p float="left">
 <img src='Demos/TwitterDemo4.gif' title='Fourth demo' width='200' alt='Video Walkthrough' />
-<img src='Demos/TwitterDemo5.gif' title='Fifth demo' width='400' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo5.gif' title='Fifth demo' width='600' alt='Video Walkthrough' />
 </p>
 
 GIF created with [Kap](https://getkap.co/).
