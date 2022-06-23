@@ -7,7 +7,6 @@
 //
 
 #import "TweetCellModel.h"
-#import "APIManager.h" // remove
 #import "DateTools.h"
 #import "TweetActionHandler.h"
 

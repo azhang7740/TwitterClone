@@ -18,7 +18,6 @@
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray<Tweet *> *tweets;
 @property (nonatomic, strong) NSMutableArray<TweetCellModel *> *tweetModels;
 @property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
 
@@ -60,7 +59,7 @@
 }
 
 - (void)didTweet:(Tweet *)tweet {
-    [self.tweets insertObject:tweet atIndex:0];
+    [self.tweetModels insertObject:[[TweetCellModel alloc] initWithTweet:tweet] atIndex:0];
     [self.homeTweetTableView reloadData];
 }
 
@@ -99,7 +98,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UINavigationController *navigationController = self.navigationController;
     TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
-    viewController.tweet = self.tweets[indexPath.row];
+    viewController.tweet = self.tweetModels[indexPath.row].tweetData;
     [navigationController pushViewController: viewController animated:YES];
 }
 
