@@ -10,6 +10,11 @@
 
 @implementation TweetActionHandler
 
+- (instancetype)init:(Tweet *)inputTweet {
+    self.tweet = inputTweet;
+    return self;
+}
+
 - (void)favorite {
     self.tweet.favorited = !self.tweet.favorited;
     if (self.tweet.favorited) {

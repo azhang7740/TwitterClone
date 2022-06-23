@@ -17,14 +17,16 @@
 
 @implementation TweetCellModel
 
-- (instancetype)init:(TweetCell *) cell
-           cellTweet:(Tweet *) tweet {
+- (instancetype)initWithTweet:(Tweet *)tweet {
     self.tweetData = tweet;
+    return self;
+}
+
+- (void)loadNewCell:(TweetCell *) cell {
     self.tweetCell = cell;
     self.tweetCell.delegate = self;
     [self.tweetCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self updateCell];
-    return self;
 }
 
 - (void)updateCell {
@@ -64,17 +66,17 @@
 }
 
 - (void)didTapFavorite {
-    TweetActionHandler *tweetActions;
+    TweetActionHandler *tweetActions = [[TweetActionHandler alloc] init:self.tweetData];
     tweetActions.tweet = self.tweetData;
     [tweetActions favorite];
-    [self updateRetweetFavorite];
+    [self updateCell];
 }
 
 - (void)didTapRetweet {
-    TweetActionHandler *tweetActions;
+    TweetActionHandler *tweetActions = [[TweetActionHandler alloc] init:self.tweetData];
     tweetActions.tweet = self.tweetData;
     [tweetActions retweet];
-    [self updateRetweetFavorite];
+    [self updateCell];
 }
 
 @end

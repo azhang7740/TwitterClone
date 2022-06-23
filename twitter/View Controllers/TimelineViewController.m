@@ -43,10 +43,13 @@
 }
 
 - (void)fetchTweets {
+    self.tweetModels = [[NSMutableArray alloc] init];
     [[APIManager shared] getHomeTimelineWithCompletion:^
      (NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
-            self.tweets = (NSMutableArray<Tweet *> *)tweets;
+            for (Tweet *tweet in tweets) {
+                [self.tweetModels addObject:[[TweetCellModel alloc] initWithTweet:tweet]];
+            }
             [self.homeTweetTableView reloadData];
         }
     }];
@@ -84,15 +87,13 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
                                                       forIndexPath:indexPath];
-    Tweet *tweet = self.tweets[indexPath.row];
-    TweetCellModel *cellModel = [[TweetCellModel alloc] init:cell cellTweet:tweet];;
-    [self.tweetModels addObject:cellModel];
+    [self.tweetModels[indexPath.row] loadNewCell:cell];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tweets.count;
+    return self.tweetModels.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
