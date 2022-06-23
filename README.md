@@ -31,7 +31,7 @@ The following **stretch** features are implemented:
 - [ ] Reply to any Tweet (**2 points**)
   - Replies should be prefixed with the username
   - The `reply_id` should be set when posting the tweet
-- [ ] See a character count when composing a Tweet (as well as a warning) (280 characters) (**1 point**)
+- [X] See a character count when composing a Tweet (as well as a warning) (280 characters) (**1 point**)
 - [ ] Load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client
 - [ ] Click on a Profile image to reveal another user's profile page, including:
   - Header view: picture and tagline
@@ -53,14 +53,14 @@ Please list two areas of the assignment you'd like to **discuss further with you
 Here's a walkthrough of implemented user stories:
 
 <p float="left">
-<img src='Demos/TwitterDemo1' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
-<img src='Demos/TwitterDemo2' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
-<img src='Demos/TwitterDemo3' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo1.gif' title='First demo' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo2.gif' title='Second demo' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo3.gif' title='Third demo' width='200' alt='Video Walkthrough' />
 </p>
 
 <p float="left">
-<img src='Demos/TwitterDemo4' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
-<img src='Demos/TwitterDemo5' title='Video Walkthrough' width='400' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo4.gif' title='Fourth demo' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo5.gif' title='Fifth demo' width='400' alt='Video Walkthrough' />
 </p>
 
 GIF created with [Kap](https://getkap.co/).
