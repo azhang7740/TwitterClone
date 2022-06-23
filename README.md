@@ -45,20 +45,32 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. How to reduce code repetition when different view controllers have similar displays
+2. The most effective/efficient way to use auto layout for better formatting
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<p float="left">
+<img src='Demos/TwitterDemo1' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo2' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo3' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+</p>
+
+<p float="left">
+<img src='Demos/TwitterDemo4' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo5' title='Video Walkthrough' width='400' alt='Video Walkthrough' />
+</p>
 
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+- Learning how to use auto layout and not having conflicting constraints
+- Interacting with the API (likes, retweets, creating new tweets, etc.)
+- Having changes in one view affect the appearance of another view (interacting with a tweet in detail view -> returning to home)
 
 ## Credits
 
