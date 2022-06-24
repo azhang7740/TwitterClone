@@ -157,16 +157,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqg-NZ-Wf8">
-                                                    <rect key="frame" x="283" y="83" width="50" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="Dto-wN-fyx"/>
-                                                        <constraint firstAttribute="height" constant="29" id="q6p-UL-Hep"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="TextView" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cVH-Za-YHp">
                                                     <rect key="frame" x="80" y="29.5" width="274" height="43.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -190,10 +180,8 @@
                                                 <constraint firstItem="jF4-WQ-741" firstAttribute="top" secondItem="Hhs-3e-uxQ" secondAttribute="top" id="SKp-EO-t2f"/>
                                                 <constraint firstItem="dVU-tW-ysx" firstAttribute="leading" secondItem="w6Y-uq-lfx" secondAttribute="trailing" constant="5" id="Sm6-U7-O43"/>
                                                 <constraint firstItem="Hhs-3e-uxQ" firstAttribute="top" secondItem="Uju-ht-pjP" secondAttribute="top" id="XeO-hd-s9U"/>
-                                                <constraint firstItem="fqg-NZ-Wf8" firstAttribute="top" secondItem="jF4-WQ-741" secondAttribute="top" id="Xfg-Vs-hgd"/>
                                                 <constraint firstItem="w6Y-uq-lfx" firstAttribute="leading" secondItem="Gi3-Yz-RhZ" secondAttribute="trailing" constant="5" id="ZUg-xR-DHF"/>
                                                 <constraint firstItem="jF4-WQ-741" firstAttribute="leading" secondItem="2yv-cR-UIs" secondAttribute="trailing" constant="5" id="ZeT-Dm-YOD"/>
-                                                <constraint firstItem="fqg-NZ-Wf8" firstAttribute="leading" secondItem="jF4-WQ-741" secondAttribute="trailing" constant="2" id="Zv7-Zi-QwX"/>
                                                 <constraint firstItem="Uju-ht-pjP" firstAttribute="leading" secondItem="BTl-MS-1ak" secondAttribute="trailing" constant="2" id="aRx-yh-jTi"/>
                                                 <constraint firstItem="w6Y-uq-lfx" firstAttribute="top" secondItem="Gi3-Yz-RhZ" secondAttribute="top" id="cJh-C6-8Kk"/>
                                                 <constraint firstAttribute="bottom" secondItem="BTl-MS-1ak" secondAttribute="bottom" constant="10" id="f0n-LY-Uu2"/>
@@ -214,7 +202,6 @@
                                             <outlet property="likeCountLabel" destination="2yv-cR-UIs" id="jBg-fW-IHI"/>
                                             <outlet property="profilePicture" destination="quK-mT-goP" id="beM-lg-KV3"/>
                                             <outlet property="replyButton" destination="jF4-WQ-741" id="7T6-Bc-kPU"/>
-                                            <outlet property="replyCountLabel" destination="fqg-NZ-Wf8" id="gbP-kf-sLL"/>
                                             <outlet property="retweetButton" destination="BTl-MS-1ak" id="QcG-Ic-F1j"/>
                                             <outlet property="retweetCountLabel" destination="Uju-ht-pjP" id="Syv-Mp-kog"/>
                                             <outlet property="tweetText" destination="cVH-Za-YHp" id="dfh-Fi-Ddu"/>

@@ -91,6 +91,26 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+- (void)postStatusReplyWithText:(NSString *)text
+                    replyToUser:(NSString *)userName
+                 replyToTweetId:(NSString *) tweetId
+                     completion:(void (^)(Tweet *, NSError *))completion {
+    NSString *urlString = @"1.1/statuses/update.json";
+    NSString *processedUserName = [[@"@" stringByAppendingString:userName] stringByAppendingString:@" "];
+    NSString *processedText = [processedUserName stringByAppendingString:text];
+    NSDictionary *parameters = @{@"status": processedText, @"in_reply_to_status_id":tweetId};;
+    
+    [self POST:urlString parameters:parameters progress:nil
+       success:^(NSURLSessionDataTask * _Nonnull task,
+                 NSDictionary *  _Nullable tweetDictionary) {
+        Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
+        completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
 - (void)getCurrentUserInfo:(void(^)(User *userInfo, NSError *error))completion {
     [self GET:@"1.1/account/verify_credentials.json"
        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task,
