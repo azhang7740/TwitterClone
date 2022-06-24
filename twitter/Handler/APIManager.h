@@ -18,6 +18,8 @@
 
 - (void)getMoreHomeTimelineTweets:(NSString *)tweetId completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion;
 
+- (void)getRepliesTo:(NSString *)tweetId withUserName:(NSString *)userName completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion;
+
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;
 
 - (void)getCurrentUserInfo:(void(^)(User *userInfo, NSError *error))completion;

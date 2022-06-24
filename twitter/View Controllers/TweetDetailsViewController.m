@@ -9,11 +9,15 @@
 #import "TweetDetailsViewController.h"
 #import "DetailsView.h"
 #import "DetailsDecorator.h"
+#import "TweetCell.h"
+#import "TweetCellDecorator.h"
+#import "APIManager.h"
 
-@interface TweetDetailsViewController ()
+@interface TweetDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet DetailsView *detailsView;
-@property (nonatomic, strong) DetailsDecorator *detailsModel;
+@property (nonatomic, strong) DetailsDecorator *detailsDecorator;
+@property (weak, nonatomic) IBOutlet UITableView *tweetDetailsTableView;
+@property (nonatomic, strong) NSMutableArray<TweetCellDecorator *> *tweetModels;
 
 @end
 
@@ -22,8 +26,64 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.detailsModel = [[DetailsDecorator alloc] init:self.tweet detailsView:self.detailsView];
-    [self.detailsModel updateView];
+    self.tweetDetailsTableView.dataSource = self;
+    self.tweetDetailsTableView.delegate = self;
+    
+    self.detailsDecorator = [[DetailsDecorator alloc] initWithTweet:self.tweet];
+    [self.detailsDecorator updateView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self fetchReplies];
+}
+
+- (void)fetchReplies {
+    self.tweetModels = [[NSMutableArray alloc] init];
+    [[APIManager shared] getHomeTimelineWithCompletion:^
+     (NSArray<Tweet *> *tweets, NSError *error) {
+        if (tweets) {
+            for (Tweet *tweet in tweets) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweet]];
+            }
+            [self.tweetDetailsTableView reloadData];
+        }
+    }];
+}
+
+- (void)fetchMoreTweets:(NSString *)tweetId {
+    [[APIManager shared] getMoreHomeTimelineTweets:tweetId completion:^ (NSArray<Tweet *> *tweets, NSError *error) {
+        if (tweets) {
+            for (int i = 1; i < tweets.count; i++) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweets[i]]];
+            }
+            [self.tweetDetailsTableView reloadData];
+        }
+    }];
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    BOOL isDetailsCell = (indexPath.row == 0);
+    if (isDetailsCell) {
+        DetailsView *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsViewId" forIndexPath:indexPath];
+        [self.detailsDecorator setView:cell];
+        [self.detailsDecorator updateView];
+        return cell;
+    } else {
+        TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
+                                                          forIndexPath:indexPath];
+        if (indexPath.row <= self.tweetModels.count) {
+            [self.tweetModels[indexPath.row] loadNewCell:cell];
+            if (indexPath.row == self.tweetModels.count - 1) {
+                [self fetchMoreTweets:self.tweetModels[indexPath.row].tweetData.idStr];
+            }
+        }
+        
+        return cell;
+    }
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tweetModels.count;
 }
 
 @end

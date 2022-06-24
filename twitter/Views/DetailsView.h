@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface DetailsView : UIScrollView
+@interface DetailsView : UITableViewCell
 
 @property (nonatomic, weak) id<DetailsViewDelegate> detailsDelegate;
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *tweetBodyLabel;
+@property (weak, nonatomic) IBOutlet UITextView *tweetBodyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postDateLabel;
 

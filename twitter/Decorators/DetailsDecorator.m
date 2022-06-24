@@ -24,6 +24,16 @@
     return self;
 }
 
+- (instancetype)initWithTweet:(Tweet *)tweet {
+    self.tweetData = tweet;
+    return self;
+}
+
+-(void)setView:(DetailsView *)view {
+    self.detailsView = view;
+    self.detailsView.detailsDelegate = self;
+}
+
 - (void)updateView {
     [self setProfilePicture];
     [self setUserTweetText];

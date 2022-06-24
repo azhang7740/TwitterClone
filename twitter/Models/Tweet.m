@@ -49,6 +49,7 @@
 
         self.createdAtString = [formatter stringFromDate:date];
         self.createdAtDate = date;
+        self.repliedToTweet = rawTweet[@"in_reply_to_status_id_str"];
     }
     return self;
 }

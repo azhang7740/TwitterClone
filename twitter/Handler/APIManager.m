@@ -51,12 +51,12 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
-    NSDictionary *parameters = @{@"tweet_mode":@"extended"};
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"exclude_replies":@"true"};
     
     [self GET:@"1.1/statuses/home_timeline.json"
        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,
                                                     NSArray *  _Nullable tweetDictionaries) {
-           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           NSMutableArray<Tweet *> *tweets = [Tweet tweetsWithArray:tweetDictionaries];
            completion(tweets, nil);
        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
            completion(nil, error);
@@ -64,15 +64,36 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 }
 
 - (void)getMoreHomeTimelineTweets:(NSString *)tweetId completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
-    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":tweetId, @"count":@"21"};
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":tweetId, @"count":@"21", @"exclude_replies":@"true"};
     
     [self GET:@"1.1/statuses/home_timeline.json"
        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,
                                                     NSArray *  _Nullable tweetDictionaries) {
-           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           NSMutableArray<Tweet *> *tweets = [Tweet tweetsWithArray:tweetDictionaries];
            completion(tweets, nil);
        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
            completion(nil, error);
+    }];
+}
+
+- (void)getRepliesTo:(NSString *)tweetId withUserName:(NSString *)userName completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
+    NSString *processedQuery = [@"to:" stringByAppendingString:userName];
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"since_id":tweetId, @"count":@"100", @"q":processedQuery};
+    
+    [self GET:@"1.1/search/tweets.json" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionaries) {
+        NSMutableArray<Tweet *> *tweets = [Tweet tweetsWithArray:tweetDictionaries[@"statuses"]];
+        NSMutableIndexSet *removeIndices = [[NSMutableIndexSet alloc] init];;
+        for (int i = 0; i < tweets.count; i++) {
+            BOOL isValidReply = (tweets[i].repliedToTweet != nil &&
+                                 [tweets[i].repliedToTweet isEqualToString:tweetId]);
+            if (!isValidReply) {
+                [removeIndices addIndex:i];
+            }
+        }
+        [tweets removeObjectsAtIndexes:removeIndices];
+        completion(tweets, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
     }];
 }
 

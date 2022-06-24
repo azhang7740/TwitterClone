@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init:(Tweet *)tweet
          detailsView: (DetailsView *)view;
+- (instancetype)initWithTweet:(Tweet *)tweet;
+-(void)setView:(DetailsView *)view;
 - (void)updateView;
 
 @end
