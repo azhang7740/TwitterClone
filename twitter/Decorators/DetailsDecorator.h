@@ -1,5 +1,5 @@
 //
-//  TweetCellModel.h
+//  DetailsModel.h
 //  twitter
 //
 //  Created by Angelina Zhang on 6/23/22.
@@ -7,19 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TweetCell.h"
 #import "Tweet.h"
+#import "DetailsView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TweetCellModel : NSObject
+@interface DetailsDecorator : NSObject
 
 @property (nonatomic, strong) Tweet* tweetData;
-@property (nonatomic, strong) TweetCell * tweetCell;
+@property (nonatomic, strong) DetailsView * detailsView;
 
-- (instancetype)initWithTweet:(Tweet *) tweet;
-- (void)loadNewCell:(TweetCell *) cell;
-- (void)updateCell;
+- (instancetype)init:(Tweet *)tweet
+         detailsView: (DetailsView *)view;
+- (void)updateView;
 
 @end
 

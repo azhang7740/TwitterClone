@@ -13,10 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TweetActionHandler : NSObject
 
+@property (nonatomic, strong) Tweet* tweet;
+
 - (instancetype)init:(Tweet *)inputTweet;
 - (void)favorite;
 - (void)retweet;
-@property (nonatomic, strong) Tweet* tweet;
 
 @end
 

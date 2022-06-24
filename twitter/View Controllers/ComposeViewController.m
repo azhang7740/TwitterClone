@@ -13,7 +13,6 @@
 @interface ComposeViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet ComposeView *composeView;
-
 @property (nonatomic, strong) User *currentUser;
 
 @end

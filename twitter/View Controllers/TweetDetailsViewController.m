@@ -8,12 +8,12 @@
 
 #import "TweetDetailsViewController.h"
 #import "DetailsView.h"
-#import "DetailsModel.h"
+#import "DetailsDecorator.h"
 
 @interface TweetDetailsViewController ()
 
 @property (weak, nonatomic) IBOutlet DetailsView *detailsView;
-@property (nonatomic, strong) DetailsModel *detailsModel;
+@property (nonatomic, strong) DetailsDecorator *detailsModel;
 
 @end
 
@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.detailsModel = [[DetailsModel alloc] init:self.tweet detailsView:self.detailsView];
+    self.detailsModel = [[DetailsDecorator alloc] init:self.tweet detailsView:self.detailsView];
     [self.detailsModel updateView];
 }
 

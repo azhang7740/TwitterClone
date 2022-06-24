@@ -14,11 +14,11 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "TweetDetailsViewController.h"
-#import "TweetCellModel.h"
+#import "TweetCellDecorator.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray<TweetCellModel *> *tweetModels;
+@property (nonatomic, strong) NSMutableArray<TweetCellDecorator *> *tweetModels;
 @property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
 
 @end
@@ -47,7 +47,7 @@
      (NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
             for (Tweet *tweet in tweets) {
-                [self.tweetModels addObject:[[TweetCellModel alloc] initWithTweet:tweet]];
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweet]];
             }
             [self.homeTweetTableView reloadData];
         }
@@ -59,7 +59,7 @@
 }
 
 - (void)didTweet:(Tweet *)tweet {
-    [self.tweetModels insertObject:[[TweetCellModel alloc] initWithTweet:tweet] atIndex:0];
+    [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
     [self.homeTweetTableView reloadData];
 }
 
@@ -86,7 +86,9 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
                                                       forIndexPath:indexPath];
-    [self.tweetModels[indexPath.row] loadNewCell:cell];
+    if (indexPath.row < self.tweetModels.count) {
+        [self.tweetModels[indexPath.row] loadNewCell:cell];
+    }
     
     return cell;
 }
@@ -98,8 +100,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UINavigationController *navigationController = self.navigationController;
     TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
-    viewController.tweet = self.tweetModels[indexPath.row].tweetData;
-    [navigationController pushViewController: viewController animated:YES];
+    if (indexPath.row < self.tweetModels.count) {
+        viewController.tweet = self.tweetModels[indexPath.row].tweetData;
+        [navigationController pushViewController: viewController animated:YES];
+    }
 }
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {

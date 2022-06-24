@@ -6,15 +6,15 @@
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import "DetailsModel.h"
+#import "DetailsDecorator.h"
 #import "APIManager.h"
 #import "TweetActionHandler.h"
 
-@interface DetailsModel() <DetailsViewDelegate>
+@interface DetailsDecorator() <DetailsViewDelegate>
 
 @end
 
-@implementation DetailsModel
+@implementation DetailsDecorator
 
 - (instancetype)init:(Tweet *)tweet
          detailsView:(DetailsView *)view {

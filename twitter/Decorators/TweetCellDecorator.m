@@ -6,15 +6,15 @@
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import "TweetCellModel.h"
+#import "TweetCellDecorator.h"
 #import "DateTools.h"
 #import "TweetActionHandler.h"
 
-@interface TweetCellModel() <TweetCellDelegate>
+@interface TweetCellDecorator() <TweetCellDelegate>
 
 @end
 
-@implementation TweetCellModel
+@implementation TweetCellDecorator
 
 - (instancetype)initWithTweet:(Tweet *)tweet {
     self.tweetData = tweet;
