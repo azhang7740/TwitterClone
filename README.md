@@ -32,7 +32,7 @@ The following **stretch** features are implemented:
   - Replies should be prefixed with the username
   - The `reply_id` should be set when posting the tweet
 - [X] See a character count when composing a Tweet (as well as a warning) (280 characters) (**1 point**)
-- [ ] Load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client
+- [X] Load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client
 - [ ] Click on a Profile image to reveal another user's profile page, including:
   - Header view: picture and tagline
   - Basic stats: #tweets, #following, #followers
@@ -42,6 +42,7 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 - [X] Likes and retweet labels change based on the number of likes/retweets (0, 1, or plural)
 - [X] Placeholder text on compose tweet text field appears when the text field is empty and disappears when typing
+- [X] Refactored code into views, decorators, and data models
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
