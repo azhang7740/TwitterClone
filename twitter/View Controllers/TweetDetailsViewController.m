@@ -74,6 +74,16 @@
     return self.tweetModels.count + 1;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UINavigationController *navigationController = self.navigationController;
+    TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
+    if (indexPath.row != 0 &&
+        indexPath.row - 1 < self.tweetModels.count) {
+        viewController.tweet = self.tweetModels[indexPath.row - 1].tweetData;
+        [navigationController pushViewController: viewController animated:YES];
+    }
+}
+
 - (void)postReply:(NSString *)tweetId
            toUser:(NSString *)userName {
     UINavigationController *navigationController = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ComposeNavigation"];
@@ -85,7 +95,8 @@
 }
 
 - (void)postTweet:(nonnull Tweet *)tweet {
-    if (tweet.repliedToTweet != nil && ![tweet.repliedToTweet isEqual:[NSNull null]]) {
+    if (tweet.repliedToTweet != nil && ![tweet.repliedToTweet isEqual:[NSNull null]] &&
+        [tweet.repliedToTweet isEqual:self.tweet.idStr]) {
         [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
         [self.tweetDetailsTableView reloadData];
     }
