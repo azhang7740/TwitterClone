@@ -50,9 +50,21 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     return self;
 }
 
-- (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets,
-                                               NSError *error))completion {
+- (void)getHomeTimelineWithCompletion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
     NSDictionary *parameters = @{@"tweet_mode":@"extended"};
+    
+    [self GET:@"1.1/statuses/home_timeline.json"
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,
+                                                    NSArray *  _Nullable tweetDictionaries) {
+           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           completion(nil, error);
+    }];
+}
+
+- (void)getMoreHomeTimelineTweets:(NSString *)tweetId completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":tweetId, @"count":@"21"};
     
     [self GET:@"1.1/statuses/home_timeline.json"
        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,

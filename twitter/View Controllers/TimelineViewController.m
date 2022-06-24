@@ -54,6 +54,17 @@
     }];
 }
 
+- (void)fetchMoreTweets:(NSString *)tweetId {
+    [[APIManager shared] getMoreHomeTimelineTweets:tweetId completion:^ (NSArray<Tweet *> *tweets, NSError *error) {
+        if (tweets) {
+            for (int i = 1; i < tweets.count; i++) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweets[i]]];
+            }
+            [self.homeTweetTableView reloadData];
+        }
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -88,6 +99,9 @@
                                                       forIndexPath:indexPath];
     if (indexPath.row < self.tweetModels.count) {
         [self.tweetModels[indexPath.row] loadNewCell:cell];
+        if (indexPath.row == self.tweetModels.count - 1) {
+            [self fetchMoreTweets:self.tweetModels[indexPath.row].tweetData.idStr];
+        }
     }
     
     return cell;
