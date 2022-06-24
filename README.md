@@ -28,7 +28,7 @@ The following **stretch** features are implemented:
 - [X] Be able to **unlike** or **un-retweet** by tapping a liked or retweeted Tweet button, respectively. (Doing so will decrement the count for each)
 - [X] Click on links that appear in Tweets
 - [ ] See embedded media in Tweets that contain images or videos
-- [ ] Reply to any Tweet (**2 points**)
+- [X] Reply to any Tweet (**2 points**)
   - Replies should be prefixed with the username
   - The `reply_id` should be set when posting the tweet
 - [X] See a character count when composing a Tweet (as well as a warning) (280 characters) (**1 point**)
@@ -44,6 +44,8 @@ The following **additional** features are implemented:
 - [X] Placeholder text on compose tweet text field appears when the text field is empty and disappears when typing
 - [X] Refactored code into views, decorators, and data models
 - [X] Replies show up in tweet details view
+- [X] Can click into other tweets' details views if they show up as a reply to a particular details view tweet
+- [X] Reply to replies to a particular tweet on details view
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
