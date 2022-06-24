@@ -60,6 +60,7 @@ Here's a walkthrough of implemented user stories:
 <img src='Demos/TwitterDemo1.gif' title='First demo' width='200' alt='Video Walkthrough' />
 <img src='Demos/TwitterDemo2.gif' title='Second demo' width='200' alt='Video Walkthrough' />
 <img src='Demos/TwitterDemo3.gif' title='Third demo' width='200' alt='Video Walkthrough' />
+<img src='Demos/TwitterDemo6.gif' title='Third demo' width='200' alt='Video Walkthrough' />
 </p>
 
 <p float="left">
