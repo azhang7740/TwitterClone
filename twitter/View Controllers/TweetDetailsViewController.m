@@ -12,8 +12,9 @@
 #import "TweetCell.h"
 #import "TweetCellDecorator.h"
 #import "APIManager.h"
+#import "ComposeViewController.h"
 
-@interface TweetDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TweetDetailsViewController () <DetailsDecoratorDelegate, ComposeViewControllerDelegate, TweetCellDecoratorDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) DetailsDecorator *detailsDecorator;
 @property (weak, nonatomic) IBOutlet UITableView *tweetDetailsTableView;
@@ -30,7 +31,7 @@
     self.tweetDetailsTableView.delegate = self;
     
     self.detailsDecorator = [[DetailsDecorator alloc] initWithTweet:self.tweet];
-    [self.detailsDecorator updateView];
+    self.detailsDecorator.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,8 +61,9 @@
     } else {
         TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
                                                           forIndexPath:indexPath];
-        if (indexPath.row <= self.tweetModels.count) {
-            [self.tweetModels[indexPath.row] loadNewCell:cell];
+        if (indexPath.row - 1 < self.tweetModels.count) {
+            [self.tweetModels[indexPath.row - 1] loadNewCell:cell];
+            self.tweetModels[indexPath.row - 1].delegate = self;
         }
         
         return cell;
@@ -69,7 +71,24 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tweetModels.count;
+    return self.tweetModels.count + 1;
+}
+
+- (void)postReply:(NSString *)tweetId
+           toUser:(NSString *)userName {
+    UINavigationController *navigationController = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ComposeNavigation"];
+   [self presentViewController:navigationController animated:YES completion:nil];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
+    composeController.replyTweetId = tweetId;
+    composeController.replyUserName = userName;
+}
+
+- (void)postTweet:(nonnull Tweet *)tweet {
+    if (tweet.repliedToTweet != nil && ![tweet.repliedToTweet isEqual:[NSNull null]]) {
+        [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
+        [self.tweetDetailsTableView reloadData];
+    }
 }
 
 @end

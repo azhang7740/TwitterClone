@@ -51,7 +51,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
-    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"exclude_replies":@"true"};
+    NSDictionary *parameters = @{@"tweet_mode":@"extended"};
     
     [self GET:@"1.1/statuses/home_timeline.json"
        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,
@@ -85,6 +85,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
         NSMutableIndexSet *removeIndices = [[NSMutableIndexSet alloc] init];;
         for (int i = 0; i < tweets.count; i++) {
             BOOL isValidReply = (tweets[i].repliedToTweet != nil &&
+                                 ![tweets[i].repliedToTweet isEqual:[NSNull null]] &&
                                  [tweets[i].repliedToTweet isEqualToString:tweetId]);
             if (!isValidReply) {
                 [removeIndices addIndex:i];

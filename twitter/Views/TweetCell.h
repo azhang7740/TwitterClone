@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didTapFavorite;
 - (void)didTapRetweet;
+- (void)didTapReply;
 
 @end
 

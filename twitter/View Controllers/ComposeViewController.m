@@ -36,14 +36,25 @@
     if (self.composeView.characterCountLabel.textColor == [UIColor redColor]) {
         [self displayErrorAlert:@"Your tweet is too long."];
     } else {
-        [[APIManager shared]postStatusWithText:self.composeView.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                [self displayErrorAlert:@"Your tweet didn't post successfully."];
-            } else {
-                [self.delegate postTweet:tweet];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-        }];
+        if (self.replyTweetId == nil || [self.replyTweetId isEqual:[NSNull null]]) {
+            [[APIManager shared]postStatusWithText:self.composeView.tweetTextField.text completion:^(Tweet *tweet, NSError *error) {
+                if(error){
+                    [self displayErrorAlert:@"Your tweet didn't post successfully."];
+                } else {
+                    [self.delegate postTweet:tweet];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
+        } else {
+            [[APIManager shared]postStatusReplyWithText:self.composeView.tweetTextField.text replyToUser:self.replyUserName replyToTweetId:self.replyTweetId completion:^(Tweet *tweet, NSError *error) {
+                if(error){
+                    [self displayErrorAlert:@"Your tweet didn't post successfully."];
+                } else {
+                    [self.delegate postTweet:tweet];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
+        }
     }
 }
 

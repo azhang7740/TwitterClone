@@ -12,10 +12,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol TweetCellDecoratorDelegate
+
+- (void)postReply:(NSString *)tweetId
+           toUser:(NSString *)userName;
+
+@end
+
 @interface TweetCellDecorator : NSObject
 
 @property (nonatomic, strong) Tweet* tweetData;
 @property (nonatomic, strong) TweetCell * tweetCell;
+@property (nonatomic, weak) id<TweetCellDecoratorDelegate> delegate;
 
 - (instancetype)initWithTweet:(Tweet *) tweet;
 - (void)loadNewCell:(TweetCell *) cell;

@@ -136,6 +136,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="reply-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapReply:" destination="GSi-uN-Gxp" eventType="touchUpInside" id="TPF-sC-p0X"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uju-ht-pjP">
                                                     <rect key="frame" x="111" y="83" width="50" height="29"/>
@@ -356,6 +359,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="reply-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapReply:" destination="4gu-eV-VHQ" eventType="touchUpInside" id="D3d-Zx-rB6"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SxR-Zj-ctY">
                                                     <rect key="frame" x="262.5" y="292" width="30" height="30"/>
@@ -484,6 +490,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="reply-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapReply:" destination="sB4-XM-e6E" eventType="touchUpInside" id="jt4-SI-x0M"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgs-Lp-xBj">
                                                     <rect key="frame" x="111" y="83" width="50" height="29"/>
@@ -689,7 +698,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sXp-hh-wHK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VWK-40-Vzh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ComposeNavigation" automaticallyAdjustsScrollViewInsets="NO" id="VWK-40-Vzh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6uP-Gd-x1i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>

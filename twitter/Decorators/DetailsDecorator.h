@@ -12,10 +12,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol DetailsDecoratorDelegate
+
+- (void)postReply:(NSString *)tweetId
+           toUser:(NSString *)userName;
+
+@end
+
 @interface DetailsDecorator : NSObject
 
 @property (nonatomic, strong) Tweet* tweetData;
 @property (nonatomic, strong) DetailsView * detailsView;
+@property (nonatomic, weak) id<DetailsDecoratorDelegate> delegate;
 
 - (instancetype)init:(Tweet *)tweet
          detailsView: (DetailsView *)view;

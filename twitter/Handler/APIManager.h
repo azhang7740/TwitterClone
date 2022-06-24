@@ -22,6 +22,11 @@
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;
 
+- (void)postStatusReplyWithText:(NSString *)text
+                    replyToUser:(NSString *)userName
+                 replyToTweetId:(NSString *) tweetId
+                     completion:(void (^)(Tweet *, NSError *))completion;
+
 - (void)getCurrentUserInfo:(void(^)(User *userInfo, NSError *error))completion;
 
 - (void)favorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;

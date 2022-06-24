@@ -16,7 +16,7 @@
 #import "TweetDetailsViewController.h"
 #import "TweetCellDecorator.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, TweetCellDecoratorDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray<TweetCellDecorator *> *tweetModels;
 @property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
@@ -70,8 +70,10 @@
 }
 
 - (void)postTweet:(Tweet *)tweet {
-    [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
-    [self.homeTweetTableView reloadData];
+    if (tweet.repliedToTweet == nil || [tweet.repliedToTweet isEqual:[NSNull null]]) {
+        [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
+        [self.homeTweetTableView reloadData];
+    }
 }
 
 - (IBAction)onTapLogout:(id)sender {
@@ -99,6 +101,7 @@
                                                       forIndexPath:indexPath];
     if (indexPath.row < self.tweetModels.count) {
         [self.tweetModels[indexPath.row] loadNewCell:cell];
+        self.tweetModels[indexPath.row].delegate = self;
         if (indexPath.row == self.tweetModels.count - 1) {
             [self fetchMoreTweets:self.tweetModels[indexPath.row].tweetData.idStr];
         }
@@ -123,6 +126,15 @@
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self fetchTweets];
     [refreshControl endRefreshing];
+}
+
+- (void)postReply:(nonnull NSString *)tweetId toUser:(nonnull NSString *)userName {
+    UINavigationController *navigationController = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ComposeNavigation"];
+   [self presentViewController:navigationController animated:YES completion:nil];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
+    composeController.replyTweetId = tweetId;
+    composeController.replyUserName = userName;
 }
 
 @end

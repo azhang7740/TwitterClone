@@ -78,4 +78,9 @@
     [self updateCell];
 }
 
+- (void)didTapReply {
+    [self.delegate postReply:self.tweetData.idStr toUser:self.tweetData.user.screenName];
+}
+
+
 @end

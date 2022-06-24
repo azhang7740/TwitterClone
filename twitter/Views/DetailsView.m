@@ -18,4 +18,8 @@
     [self.detailsDelegate didTapFavorite];
 }
 
+- (IBAction)didTapReply:(id)sender {
+    [self.detailsDelegate didTapReply];
+}
+
 @end

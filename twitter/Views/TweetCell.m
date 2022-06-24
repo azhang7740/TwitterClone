@@ -32,4 +32,8 @@
     [self.delegate didTapRetweet];
 }
 
+- (IBAction)didTapReply:(id)sender {
+    [self.delegate didTapReply];
+}
+
 @end

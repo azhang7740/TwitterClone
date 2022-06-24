@@ -43,6 +43,7 @@ The following **additional** features are implemented:
 - [X] Likes and retweet labels change based on the number of likes/retweets (0, 1, or plural)
 - [X] Placeholder text on compose tweet text field appears when the text field is empty and disappears when typing
 - [X] Refactored code into views, decorators, and data models
+- [X] Replies show up in tweet details view
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
