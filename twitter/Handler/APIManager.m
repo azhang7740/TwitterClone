@@ -78,7 +78,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 
 - (void)getRepliesTo:(NSString *)tweetId withUserName:(NSString *)userName completion:(void(^)(NSArray<Tweet *> *tweets, NSError *error))completion {
     NSString *processedQuery = [@"to:" stringByAppendingString:userName];
-    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"since_id":tweetId, @"count":@"100", @"q":processedQuery};
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"since_id":tweetId, @"count":@"50", @"q":processedQuery};
     
     [self GET:@"1.1/search/tweets.json" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionaries) {
         NSMutableArray<Tweet *> *tweets = [Tweet tweetsWithArray:tweetDictionaries[@"statuses"]];
