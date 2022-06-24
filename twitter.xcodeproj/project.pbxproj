@@ -14,6 +14,7 @@
 		413DE3F828650EE600CCF8E1 /* TweetCellDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 413DE3F728650EE600CCF8E1 /* TweetCellDecorator.m */; };
 		413DE401286516E200CCF8E1 /* TweetActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 413DE400286516E200CCF8E1 /* TweetActionHandler.m */; };
 		413DE40428652A2000CCF8E1 /* DetailsDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 413DE40328652A2000CCF8E1 /* DetailsDecorator.m */; };
+		413DE40B28661E4400CCF8E1 /* ComposeDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 413DE40A28661E4400CCF8E1 /* ComposeDecorator.m */; };
 		418C2A3728623458002181C5 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418C2A3628623458002181C5 /* ComposeViewController.m */; };
 		41A761A628611CCA00BF4ED3 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A761A528611CCA00BF4ED3 /* User.m */; };
 		41A761A928611D7F00BF4ED3 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A761A828611D7F00BF4ED3 /* Tweet.m */; };
@@ -45,6 +46,8 @@
 		413DE400286516E200CCF8E1 /* TweetActionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetActionHandler.m; sourceTree = "<group>"; };
 		413DE40228652A2000CCF8E1 /* DetailsDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsDecorator.h; sourceTree = "<group>"; };
 		413DE40328652A2000CCF8E1 /* DetailsDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsDecorator.m; sourceTree = "<group>"; };
+		413DE40928661E4400CCF8E1 /* ComposeDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeDecorator.h; sourceTree = "<group>"; };
+		413DE40A28661E4400CCF8E1 /* ComposeDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeDecorator.m; sourceTree = "<group>"; };
 		418C2A3528623458002181C5 /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		418C2A3628623458002181C5 /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		41A761A428611CCA00BF4ED3 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				413DE3F728650EE600CCF8E1 /* TweetCellDecorator.m */,
 				413DE40228652A2000CCF8E1 /* DetailsDecorator.h */,
 				413DE40328652A2000CCF8E1 /* DetailsDecorator.m */,
+				413DE40928661E4400CCF8E1 /* ComposeDecorator.h */,
+				413DE40A28661E4400CCF8E1 /* ComposeDecorator.m */,
 			);
 			path = Decorators;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				413DE40428652A2000CCF8E1 /* DetailsDecorator.m in Sources */,
+				413DE40B28661E4400CCF8E1 /* ComposeDecorator.m in Sources */,
 				41A761AC2861287700BF4ED3 /* TweetCell.m in Sources */,
 				413DE3F12864FC0800CCF8E1 /* ComposeView.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,

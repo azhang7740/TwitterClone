@@ -58,7 +58,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)didTweet:(Tweet *)tweet {
+- (void)postTweet:(Tweet *)tweet {
     [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
     [self.homeTweetTableView reloadData];
 }

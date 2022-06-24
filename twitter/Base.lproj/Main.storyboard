@@ -468,6 +468,7 @@
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaV-BQ-PY6">
                                 <rect key="frame" x="360" y="252" width="6" height="12"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -488,7 +489,7 @@
                             <outlet property="characterCountLabel" destination="NaV-BQ-PY6" id="R6r-xq-1x9"/>
                             <outlet property="tweetTextField" destination="Tfu-rR-m9n" id="hhu-P3-udh"/>
                             <outlet property="userProfileImage" destination="gDn-5D-Crg" id="1L4-7v-sC7"/>
-                            <outletCollection property="gestureRecognizers" destination="GgY-mC-772" appends="YES" id="ygB-bg-3Jw"/>
+                            <outletCollection property="gestureRecognizers" destination="GgY-mC-772" appends="YES" id="bbz-UC-jHd"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="MCZ-p6-wRp">
@@ -511,7 +512,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Tweet"/>
                                 <connections>
-                                    <action selector="onTapTweet:" destination="K41-4R-lzg" eventType="touchUpInside" id="96g-uX-GSI"/>
+                                    <action selector="onTapTweet:" destination="K41-4R-lzg" eventType="touchUpInside" id="z8m-A0-YJa"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -523,7 +524,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rnq-Zm-Uc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="GgY-mC-772">
                     <connections>
-                        <action selector="onTapOutside:" destination="K41-4R-lzg" id="7sA-3c-yQi"/>
+                        <action selector="onTapOutside:" destination="K41-4R-lzg" id="L8V-Oo-vAO"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
