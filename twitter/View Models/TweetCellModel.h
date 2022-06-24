@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) Tweet* tweetData;
 @property (nonatomic, strong) TweetCell * tweetCell;
 
-- (void)loadNewCell:(TweetCell *) cell;
 - (instancetype)initWithTweet:(Tweet *) tweet;
+- (void)loadNewCell:(TweetCell *) cell;
 - (void)updateCell;
 
 @end

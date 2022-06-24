@@ -274,7 +274,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibu-mi-Uz5">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibu-mi-Uz5" customClass="DetailsView">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NU9-bn-O4V">
@@ -345,7 +345,7 @@
                                         <state key="normal" image="retweet-icon"/>
                                         <state key="selected" image="retweet-icon-green"/>
                                         <connections>
-                                            <action selector="onTapRetweet:" destination="XhM-or-gm8" eventType="touchUpInside" id="63Q-e7-N5X"/>
+                                            <action selector="didTapRetweet:" destination="ibu-mi-Uz5" eventType="touchUpInside" id="Ere-9g-9va"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="muE-NI-Kib">
@@ -358,7 +358,7 @@
                                         <state key="normal" image="favor-icon"/>
                                         <state key="selected" image="favor-icon-red"/>
                                         <connections>
-                                            <action selector="onTapFavorite:" destination="XhM-or-gm8" eventType="touchUpInside" id="TZm-kE-zzf"/>
+                                            <action selector="didTapFavorite:" destination="ibu-mi-Uz5" eventType="touchUpInside" id="0Un-Rh-yYC"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2b-AX-6M7">
@@ -406,6 +406,20 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="TB1-b0-vzh"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="axq-oi-Gla"/>
+                                <connections>
+                                    <outlet property="favoriteButton" destination="muE-NI-Kib" id="eAQ-Np-63j"/>
+                                    <outlet property="favoriteLabel" destination="LSr-Vm-P0B" id="8tf-z8-d3a"/>
+                                    <outlet property="nameLabel" destination="O1Q-Gt-KzK" id="JrI-pi-w0I"/>
+                                    <outlet property="postDateLabel" destination="9zb-cP-zE0" id="Car-VA-HUq"/>
+                                    <outlet property="postTimeLabel" destination="nbj-ZG-H1I" id="jJT-BL-5Gb"/>
+                                    <outlet property="profilePictureImage" destination="NU9-bn-O4V" id="iiX-DZ-3fb"/>
+                                    <outlet property="replyButton" destination="P78-gC-e1w" id="vew-gE-5BY"/>
+                                    <outlet property="retweetButton" destination="vrZ-5E-oeH" id="Xr7-Jb-Apa"/>
+                                    <outlet property="retweetsLabel" destination="Fai-K1-FKd" id="K2l-2c-9l4"/>
+                                    <outlet property="screenNameLabel" destination="B94-2E-3U1" id="m7K-lY-de5"/>
+                                    <outlet property="shareButton" destination="I2b-AX-6M7" id="PKw-Zr-Ca9"/>
+                                    <outlet property="tweetBodyLabel" destination="EQp-kW-8lL" id="A76-cz-cuC"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KmJ-e2-w9U"/>
@@ -419,18 +433,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8ve-Bn-c9G"/>
                     <connections>
-                        <outlet property="favoriteButton" destination="muE-NI-Kib" id="Crd-fs-wyr"/>
-                        <outlet property="favoriteLabel" destination="LSr-Vm-P0B" id="n5J-uy-glJ"/>
-                        <outlet property="nameLabel" destination="O1Q-Gt-KzK" id="W9O-PF-AiZ"/>
-                        <outlet property="postDateLabel" destination="9zb-cP-zE0" id="QaS-Sd-GYw"/>
-                        <outlet property="postTimeLabel" destination="nbj-ZG-H1I" id="9gl-rF-DkT"/>
-                        <outlet property="profilePictureImage" destination="NU9-bn-O4V" id="uP5-rW-hep"/>
-                        <outlet property="replyButton" destination="P78-gC-e1w" id="02y-SY-wxZ"/>
-                        <outlet property="retweetButton" destination="vrZ-5E-oeH" id="JgL-rB-hpZ"/>
-                        <outlet property="retweetsLabel" destination="Fai-K1-FKd" id="U0Y-fC-zbj"/>
-                        <outlet property="screenNameLabel" destination="B94-2E-3U1" id="OYT-Pr-OVj"/>
-                        <outlet property="shareButton" destination="I2b-AX-6M7" id="6wb-BO-0hp"/>
-                        <outlet property="tweetBodyLabel" destination="EQp-kW-8lL" id="JCc-CK-cUN"/>
+                        <outlet property="detailsView" destination="ibu-mi-Uz5" id="dYx-4X-6J0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFd-yz-2rs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

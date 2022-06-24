@@ -10,4 +10,12 @@
 
 @implementation DetailsView
 
+- (IBAction)didTapRetweet:(id)sender {
+    [self.detailsDelegate didTapRetweet];
+}
+
+- (IBAction)didTapFavorite:(id)sender {
+    [self.detailsDelegate didTapFavorite];
+}
+
 @end
