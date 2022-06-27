@@ -466,7 +466,7 @@
                                                     <state key="normal" image="retweet-icon"/>
                                                     <state key="selected" image="retweet-icon-green"/>
                                                     <connections>
-                                                        <action selector="didTapRetweet:" destination="sB4-XM-e6E" eventType="touchUpInside" id="8Gd-RE-rxJ"/>
+                                                        <action selector="didTapRetweet:" destination="sB4-XM-e6E" eventType="touchUpInside" id="IDD-Cl-ThG"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUV-M3-kqt">
@@ -479,7 +479,7 @@
                                                     <state key="normal" image="favor-icon"/>
                                                     <state key="selected" image="favor-icon-red"/>
                                                     <connections>
-                                                        <action selector="didTapFavorite:" destination="sB4-XM-e6E" eventType="touchUpInside" id="Nyi-a5-X5J"/>
+                                                        <action selector="didTapFavorite:" destination="sB4-XM-e6E" eventType="touchUpInside" id="aBv-iZ-6G7"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vY-M0-AE5">
@@ -559,7 +559,7 @@
                                             <outlet property="likeCountLabel" destination="1G6-aQ-cPI" id="IOv-5L-07q"/>
                                             <outlet property="profilePicture" destination="Vu5-S4-4l0" id="4vA-Cq-dpW"/>
                                             <outlet property="replyButton" destination="0vY-M0-AE5" id="1rD-5U-C5F"/>
-                                            <outlet property="retweetButton" destination="Lag-Zj-DjD" id="sBx-lI-hmU"/>
+                                            <outlet property="retweetButton" destination="Lag-Zj-DjD" id="WTx-II-bTb"/>
                                             <outlet property="retweetCountLabel" destination="fgs-Lp-xBj" id="JFM-zw-nw0"/>
                                             <outlet property="tweetText" destination="8qI-ew-7Gt" id="HKq-Nb-dIe"/>
                                             <outlet property="userAccountName" destination="Wn4-EJ-juH" id="7H6-ct-zEX"/>

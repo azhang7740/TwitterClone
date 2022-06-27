@@ -45,6 +45,7 @@
         if (tweets) {
             for (Tweet *tweet in tweets) {
                 [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweet]];
+                // shows up twice because of retweet
             }
             [self.tweetDetailsTableView reloadData];
         }
@@ -75,10 +76,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UINavigationController *navigationController = self.navigationController;
-    TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
     if (indexPath.row != 0 &&
         indexPath.row - 1 < self.tweetModels.count) {
+        UINavigationController *navigationController = self.navigationController;
+        TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
         viewController.tweet = self.tweetModels[indexPath.row - 1].tweetData;
         [navigationController pushViewController: viewController animated:YES];
     }

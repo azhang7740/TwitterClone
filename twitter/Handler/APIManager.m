@@ -86,7 +86,8 @@ static NSString * const baseURLString = @"https://api.twitter.com";
         for (int i = 0; i < tweets.count; i++) {
             BOOL isValidReply = (tweets[i].repliedToTweet != nil &&
                                  ![tweets[i].repliedToTweet isEqual:[NSNull null]] &&
-                                 [tweets[i].repliedToTweet isEqualToString:tweetId]);
+                                 [tweets[i].repliedToTweet isEqualToString:tweetId] &&
+                                 !tweets[i].isRetweet);
             if (!isValidReply) {
                 [removeIndices addIndex:i];
             }

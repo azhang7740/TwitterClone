@@ -16,8 +16,8 @@
     NSMutableDictionary *rawTweet = [dictionary copy];
     if (self) {
         NSDictionary *originalTweet = rawTweet[@"retweeted_status"];
-        BOOL isReTweet = (originalTweet != nil);
-        if (isReTweet) {
+        self.isRetweet = (originalTweet != nil);
+        if (self.isRetweet) {
             NSDictionary *userDictionary = rawTweet[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
             rawTweet = (NSMutableDictionary *)originalTweet;
