@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// For Retweets: If the tweet is a retweet, this will be the user who retweeted
 @property (nonatomic, strong) User *retweetedByUser;
+/// For Retweets: If the tweet is a retweet, this indicates it is a retweet
+@property (nonatomic) BOOL isRetweet;
+/// For Replies: If the tweet is a reply, this will be the tweetId of the original tweet
+@property (nonatomic, strong) NSString *repliedToTweet;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 + (NSMutableArray *)tweetsWithArray:(NSArray *)dictionaries;

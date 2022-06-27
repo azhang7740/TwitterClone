@@ -7,25 +7,18 @@
 //
 
 #import "TweetDetailsViewController.h"
+#import "DetailsView.h"
+#import "DetailsDecorator.h"
+#import "TweetCell.h"
+#import "TweetCellDecorator.h"
 #import "APIManager.h"
+#import "ComposeViewController.h"
 
-@interface TweetDetailsViewController ()
+@interface TweetDetailsViewController () <DetailsDecoratorDelegate, ComposeViewControllerDelegate, TweetCellDecoratorDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *tweetBodyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *postTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *postDateLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *retweetsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteLabel;
-
-@property (weak, nonatomic) IBOutlet UIButton *replyButton;
-@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
-@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
+@property (nonatomic, strong) DetailsDecorator *detailsDecorator;
+@property (weak, nonatomic) IBOutlet UITableView *tweetDetailsTableView;
+@property (nonatomic, strong) NSMutableArray<TweetCellDecorator *> *tweetModels;
 
 @end
 
@@ -34,114 +27,80 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setProfilePicture];
-    [self setUserTweetText];
-    [self setPostDateTime];
-    [self setFavoritesAndRetweets];
-}
-
-- (void)setProfilePicture {
-    NSString *URLString = self.tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    self.profilePictureImage.image = [UIImage imageWithData:urlData];
-    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
-}
-
-- (void)setUserTweetText {
-    self.nameLabel.text = self.tweet.user.name;
-    self.screenNameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
-    self.tweetBodyLabel.text = self.tweet.text;
-}
-
-- (void)setPostDateTime {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setLocalizedDateFormatFromTemplate:@"h:mm"];
-    self.postTimeLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
-    [dateFormatter setLocalizedDateFormatFromTemplate:@"MMM d, yyyy"];
-    self.postDateLabel.text = [dateFormatter stringFromDate:self.tweet.createdAtDate];
-}
-
-- (void)setFavoritesAndRetweets {
-    if (self.tweet.retweetCount == 1) {
-        self.retweetsLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.retweetCount] stringByAppendingString:@" retweet  "];
-    } else if (self.tweet.retweetCount > 0) {
-        self.retweetsLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.retweetCount] stringByAppendingString:@" retweets   "];
-    } else {
-        self.retweetsLabel.text = @"";
-    }
-    self.retweetButton.selected = self.tweet.retweeted;
+    self.tweetDetailsTableView.dataSource = self;
+    self.tweetDetailsTableView.delegate = self;
     
-    if (self.tweet.favoriteCount == 1) {
-        self.favoriteLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] stringByAppendingString:@" like"];
-    } else if (self.tweet.favoriteCount > 0) {
-        self.favoriteLabel.text = [[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] stringByAppendingString:@" likes"];
+    self.detailsDecorator = [[DetailsDecorator alloc] initWithTweet:self.tweet];
+    self.detailsDecorator.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self fetchReplies];
+}
+
+- (void)fetchReplies {
+    self.tweetModels = [[NSMutableArray alloc] init];
+    [[APIManager shared] getRepliesTo:self.tweet.idStr withUserName:self.tweet.user.screenName completion:^
+     (NSArray<Tweet *> *tweets, NSError *error) {
+        if (tweets) {
+            for (Tweet *tweet in tweets) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweet]];
+                // shows up twice because of retweet
+            }
+            [self.tweetDetailsTableView reloadData];
+        }
+    }];
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    BOOL isDetailsCell = (indexPath.row == 0);
+    if (isDetailsCell) {
+        DetailsView *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsViewId" forIndexPath:indexPath];
+        [self.detailsDecorator setView:cell];
+        [self.detailsDecorator updateView];
+        return cell;
     } else {
-        self.favoriteLabel.text = @"";
+        TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
+                                                          forIndexPath:indexPath];
+        if (indexPath.row - 1 < self.tweetModels.count) {
+            [self.tweetModels[indexPath.row - 1] loadNewCell:cell];
+            self.tweetModels[indexPath.row - 1].delegate = self;
+        }
+        
+        return cell;
     }
-    self.favoriteButton.selected = self.tweet.favorited;
 }
 
-- (IBAction)onTapRetweet:(id)sender {
-    if (!self.tweet.retweeted) {
-        self.tweet.retweetCount += 1;
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error Retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-             }
-         }];
-    } else {
-        self.tweet.retweetCount -= 1;
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
-         }];
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tweetModels.count + 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != 0 &&
+        indexPath.row - 1 < self.tweetModels.count) {
+        UINavigationController *navigationController = self.navigationController;
+        TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
+        viewController.tweet = self.tweetModels[indexPath.row - 1].tweetData;
+        [navigationController pushViewController: viewController animated:YES];
     }
-    self.tweet.retweeted = !self.tweet.retweeted;
-    [self setFavoritesAndRetweets];
 }
 
-- (IBAction)onTapFavorite:(id)sender {
-    if (!self.tweet.favorited) {
-        self.tweet.favoriteCount += 1;
-        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-             }
-         }];
-    } else {
-        self.tweet.favoriteCount -= 1;
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-             }
-         }];
+- (void)postReply:(NSString *)tweetId
+           toUser:(NSString *)userName {
+    UINavigationController *navigationController = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ComposeNavigation"];
+   [self presentViewController:navigationController animated:YES completion:nil];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
+    composeController.replyTweetId = tweetId;
+    composeController.replyUserName = userName;
+}
+
+- (void)postTweet:(nonnull Tweet *)tweet {
+    if (tweet.repliedToTweet != nil && ![tweet.repliedToTweet isEqual:[NSNull null]] &&
+        [tweet.repliedToTweet isEqual:self.tweet.idStr]) {
+        [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
+        [self.tweetDetailsTableView reloadData];
     }
-    self.tweet.favorited = !self.tweet.favorited;
-    [self setFavoritesAndRetweets];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

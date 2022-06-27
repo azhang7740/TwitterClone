@@ -14,10 +14,11 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "TweetDetailsViewController.h"
+#import "TweetCellDecorator.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, TweetCellDecoratorDelegate,UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray<Tweet *> *arrayOfTweets;
+@property (nonatomic, strong) NSMutableArray<TweetCellDecorator *> *tweetModels;
 @property (weak, nonatomic) IBOutlet UITableView *homeTweetTableView;
 
 @end
@@ -41,13 +42,25 @@
 }
 
 - (void)fetchTweets {
+    self.tweetModels = [[NSMutableArray alloc] init];
     [[APIManager shared] getHomeTimelineWithCompletion:^
      (NSArray<Tweet *> *tweets, NSError *error) {
         if (tweets) {
-            self.arrayOfTweets = (NSMutableArray<Tweet *> *)tweets;
+            for (Tweet *tweet in tweets) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweet]];
+            }
             [self.homeTweetTableView reloadData];
-        } else {
-            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)fetchMoreTweets:(NSString *)tweetId {
+    [[APIManager shared] getMoreHomeTimelineTweets:tweetId completion:^ (NSArray<Tweet *> *tweets, NSError *error) {
+        if (tweets) {
+            for (int i = 1; i < tweets.count; i++) {
+                [self.tweetModels addObject:[[TweetCellDecorator alloc] initWithTweet:tweets[i]]];
+            }
+            [self.homeTweetTableView reloadData];
         }
     }];
 }
@@ -56,9 +69,11 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)didTweet:(Tweet *)tweet {
-    [self.arrayOfTweets insertObject:tweet atIndex:0];
-    [self.homeTweetTableView reloadData];
+- (void)postTweet:(Tweet *)tweet {
+    if (tweet.repliedToTweet == nil || [tweet.repliedToTweet isEqual:[NSNull null]]) {
+        [self.tweetModels insertObject:[[TweetCellDecorator alloc] initWithTweet:tweet] atIndex:0];
+        [self.homeTweetTableView reloadData];
+    }
 }
 
 - (IBAction)onTapLogout:(id)sender {
@@ -84,27 +99,42 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetIdCell"
                                                       forIndexPath:indexPath];
-    Tweet *tweet = self.arrayOfTweets[indexPath.row];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell refreshData:tweet];
+    if (indexPath.row < self.tweetModels.count) {
+        [self.tweetModels[indexPath.row] loadNewCell:cell];
+        self.tweetModels[indexPath.row].delegate = self;
+        if (indexPath.row == self.tweetModels.count - 1) {
+            [self fetchMoreTweets:self.tweetModels[indexPath.row].tweetData.idStr];
+        }
+    }
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arrayOfTweets.count;
+    return self.tweetModels.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UINavigationController *navigationController = self.navigationController;
     TweetDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TweetDetailsViewController"];
-    viewController.tweet = self.arrayOfTweets[indexPath.row];
-    [navigationController pushViewController: viewController animated:YES];
+    if (indexPath.row < self.tweetModels.count) {
+        viewController.tweet = self.tweetModels[indexPath.row].tweetData;
+        [navigationController pushViewController: viewController animated:YES];
+    }
 }
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self fetchTweets];
     [refreshControl endRefreshing];
+}
+
+- (void)postReply:(nonnull NSString *)tweetId toUser:(nonnull NSString *)userName {
+    UINavigationController *navigationController = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ComposeNavigation"];
+   [self presentViewController:navigationController animated:YES completion:nil];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
+    composeController.replyTweetId = tweetId;
+    composeController.replyUserName = userName;
 }
 
 @end
